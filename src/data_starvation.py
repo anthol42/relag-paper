@@ -207,11 +207,7 @@ def run_starvation_repeat(
         metric=metric, seed=seed,
     )
 
-    # n_eff counts communities that are eligible to be dropped by
-    # community_downsample -- non-singleton only by default (singletons are
-    # outliers, don't contribute to n_eff), or ALL communities including
-    # singletons when singletons_are_com=True (their singletons carry real
-    # per-sample generalization value -- see run_singleton_power_experiment).
+    # n_eff: number of non-singleton communities (all communities if singletons_are_com).
     from collections import Counter
     train_sizes = Counter(communities[i] for i in train_idx)
     if singletons_are_com:
@@ -420,8 +416,7 @@ def run_singleton_power_experiment(
 
         singleton_idx_full = [i for i in train_idx if sizes[communities[i]] == 1]
         nonsingleton_idx_full = [i for i in train_idx if sizes[communities[i]] >= 2]
-        # Match both subsets down to the smaller of the two -- singletons
-        # outnumber non-singletons for some datasets.
+        # Downsample both subsets to the smaller size.
         n_match = min(len(singleton_idx_full), len(nonsingleton_idx_full))
         single_ns.append(n_match)
         print(f"  seed={s_seed}: train={len(train_idx)}  singleton={len(singleton_idx_full)}  "

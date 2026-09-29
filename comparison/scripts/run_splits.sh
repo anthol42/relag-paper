@@ -44,8 +44,7 @@ for seed in $(seq 1 10); do
         dtype="${dtype_ds%%:*}"; ds="${dtype_ds#*:}"
         wd="$BASE/tmp/datasail_${seed}_${ds}"
         mkdir -p "$wd"
-        # DataSAIL's ILP can be infeasible for some (dataset, seed): keep going,
-        # like the cluster pipeline did (training/leakage skip missing splits).
+        # Warn and continue if DataSAIL fails for a (dataset, seed).
         "$RUNTIME" exec --bind "$BASE" --pwd "$wd" "$BASE/datasail.sif" \
             python "$BASE/datasail_split/run_datasail.py" \
             --dtype "$dtype" --dataset "$ds" --seed "$seed" --threads "$THREADS" \

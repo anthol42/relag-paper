@@ -40,16 +40,13 @@ def main():
     df = pd.read_parquet(Path(args.data_dir) / "protein" / f"{args.dataset}.parquet")
     y = df[TARGET_COL[args.dataset]].values.astype(np.float32)
 
-    # Load split (no subsampling: CPM/no-post-filter keeps relag's full train set,
-    # so every method trains on its own full natural train set)
+    # Load the split indices.
     tr_idx, val_idx, te_idx = load_split(args.splits_dir, args.method, args.dataset, args.seed)
     tr_idx = np.asarray(tr_idx, dtype=np.int64)
     val_idx = np.asarray(val_idx, dtype=np.int64)
     te_idx = np.asarray(te_idx, dtype=np.int64)
 
-    # Degenerate split (e.g. hestia giant-component collapse -> empty test): nothing
-    # to evaluate. Record null and exit 0 so it aggregates as missing rather than
-    # crashing the array task and cancelling finalize.
+    # Empty train or test split: save a null result.
     if te_idx.size == 0 or tr_idx.size == 0:
         print(f"[{args.dataset}][{args.method}][seed={args.seed}] SKIP degenerate split "
               f"(train={tr_idx.size}, val={val_idx.size}, test={te_idx.size}) -> null result")

@@ -129,8 +129,7 @@ def train_eval_mlp(
 
     if is_classification:
         if metric == "auroc":
-            # AUROC needs a ranking score, not a hard prediction -- softmax
-            # probability of the positive class.
+            # Probability of the positive class.
             probs = torch.softmax(test_out, dim=-1)[:, 1].numpy()
             score = float(roc_auc_score(y_te, probs))
             preds_out = probs
@@ -160,9 +159,7 @@ def train_eval_mlp(
         per_label_scores = None
 
     rprint(f"[dim]    MLP done in {time.perf_counter() - t0:.1f}s — {metric}={score:.4f}[/]")
-    # Raw per-sample predictions for test_idx, in the same order. Lets a caller
-    # score several disjoint sets from ONE fit: pass their union as test_idx and
-    # slice this, instead of refitting the identical model per set.
+    # Per-sample test predictions, in test_idx order.
     result = {"metric": metric, "score": score, "predictions": preds_out.tolist()}
     if metric == "pcc":
         result["r2"] = r2

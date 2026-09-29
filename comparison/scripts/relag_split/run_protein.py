@@ -10,8 +10,7 @@ from split_utils import (save_split, save_relag_sizes, save_community_stats,
                          split_train_val, track_split, load_protein_sequences,
                          REPO_ROOT, SEEDS, PROTEIN_DATASETS)
 
-# relag proximity_threshold is a DISTANCE (= 1 - identity). 50% identity target
-# -> 1 - 0.50 = 0.50 (matches Hestia's THRESHOLD below).
+# Distance threshold: 1 - sequence identity of 0.50.
 THRESHOLD = 0.50
 TEST_RATIO = 0.20
 VAL_RATIO = 0.10  # fraction of (train+val) kept as val

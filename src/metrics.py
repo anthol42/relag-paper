@@ -76,10 +76,7 @@ def fit_gpd_tail(
     sorted_scores = np.sort(scores)
     u = sorted_scores[k - 1]
 
-    # Reflect the left tail into the right-tail convention GPD expects:
-    # Y = u - X, conditional on X < u, so Y >= 0 and larger Y <=> smaller
-    # (rarer) X. This Y | (X < u) is exactly the peaks-over-threshold
-    # excess distribution GPD is meant to model.
+    # Excesses below u: Y = u - X for X < u.
     excesses = u - sorted_scores[:k]
     try:
         # Fit GPD(shape=xi, loc=0, scale=sigma) to Y | (X < u) via MLE.
@@ -109,16 +106,10 @@ def _gpd_tail_estimate(
     if fit is None or threshold >= fit.u:
         return None
 
-    # genpareto.sf(y) = P(Y >= y | X < u), i.e. the conditional GPD survival
-    # function evaluated at the excess corresponding to `threshold`:
-    #   S(y) = (1 + xi * y / sigma) ** (-1 / xi)          if xi != 0
-    #   S(y) = exp(-y / sigma)                            if xi == 0
+    # P(Y >= u - threshold | X < u) from the fitted GPD.
     excess_needed = fit.u - threshold
     p_given_tail = genpareto.sf(excess_needed, fit.shape, loc=0, scale=fit.scale)
-    # Law of total probability (valid since threshold < u, so X <= threshold
-    # implies X < u — the event is entirely inside the conditioning set):
-    #   P(X <= threshold) = P(X < u) * P(Y >= u - threshold | X < u)
-    #                     = p_below_u * p_given_tail
+    # P(X <= threshold) = P(X < u) * P(Y >= u - threshold | X < u)
     return float(fit.p_below_u * p_given_tail)
 
 

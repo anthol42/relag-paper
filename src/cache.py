@@ -10,9 +10,7 @@ from refnd.core import EdgeStore
 
 class CacheStore:
     def __init__(self, root: str | None = None):
-        # RELAG_CACHE_DIR lets a Slurm job (or any env) redirect the cache
-        # off the default ".cache" (relative to cwd, e.g. $HOME) to scratch
-        # storage without touching every CacheStore() call site.
+        # Cache root: `root`, else $RELAG_CACHE_DIR, else .cache.
         self.root = Path(root or os.environ.get("RELAG_CACHE_DIR", ".cache"))
         self.root.mkdir(parents=True, exist_ok=True)
 

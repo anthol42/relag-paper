@@ -179,8 +179,7 @@ def grow_forest(profile: AtlasProfile, n_families: int, n_peptides: int,
     cursor = 0
     while len(nodes) < n_peptides:
         if cursor == len(queue):
-            # every lineage is saturated (or died out): re-expand a node that
-            # still has edit budget. Roots always qualify, so this terminates.
+            # Re-expand a node that still has edit budget.
             queue.append(int(rng.choice(
                 [node.index for node in nodes if node.depth_edits < max_depth_edits])))
         parent = nodes[queue[cursor]]

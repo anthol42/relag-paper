@@ -9,21 +9,10 @@ from pathlib import Path
 
 import numpy as np
 
-# os.cpu_count() reports the node's total physical CPUs, not the cpuset a
-# Slurm job is actually confined to via --cpus-per-task -- on a shared
-# cluster node that oversubscribes ProcessPoolExecutor's default worker
-# count far past the job's --mem budget, and a worker getting OOM-killed by
-# the cgroup surfaces as BrokenProcessPool. sched_getaffinity respects the
-# cpuset Slurm sets, so this stays within what was actually allocated.
+# Number of CPUs available to this process.
 _MAX_WORKERS = len(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else os.cpu_count()
 
-# relag (a Rust/PyO3 extension imported by src/datasets.py before this
-# module is used) may already have live native threads in this process. The
-# default "fork" start method duplicates the parent's memory and those
-# threads' lock state, but only the forking thread survives into the child
-# -- a fork-safety hazard that can kill a native worker (RDKit) immediately,
-# regardless of input size or memory. "spawn" starts each worker as a fresh
-# interpreter instead, avoiding inherited native thread/lock state.
+# Worker processes are started with spawn.
 _MP_CONTEXT = multiprocessing.get_context("spawn")
 
 
@@ -51,19 +40,11 @@ def belka_fp_worker(smiles: str) -> np.ndarray | None:
             return None
         morgan_gen = rdFingerprintGenerator.GetMorganGenerator(radius=2, fpSize=2048)
         fp = morgan_gen.GetFingerprint(mol)
-        # `np.array(fp, dtype=bool)` relies on ExplicitBitVect's buffer/sequence
-        # protocol, which segfaulted here on the cluster (faulthandler pinned the
-        # crash to this exact line). rdkit.DataStructs.ConvertToNumpyArray is
-        # RDKit's own documented conversion path and doesn't hit that code path.
+        # Convert the fingerprint to a numpy bit array.
         arr = np.zeros((fp.GetNumBits(),), dtype=np.int8)
         DataStructs.ConvertToNumpyArray(fp, arr)
         return arr.astype(bool)
     except Exception:
-        # A native crash (segfault/abort) bypasses this entirely -- faulthandler
-        # (see _init_worker) is what catches that case. This is for ordinary
-        # Python-level exceptions, so at least the offending SMILES is on record
-        # before the exception propagates and (if it kills the worker) shows up
-        # to the parent as BrokenProcessPool.
         print(f"[belka_fp_worker] failed on SMILES: {smiles!r}", file=sys.stderr, flush=True)
         raise
 

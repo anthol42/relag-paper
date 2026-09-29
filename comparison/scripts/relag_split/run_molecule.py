@@ -9,13 +9,11 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from split_utils import (save_split, save_relag_sizes, save_community_stats,
                          split_train_val, track_split, SEEDS, MOLECULE_DATASETS)
 
-# relag proximity_threshold is a DISTANCE (= 1 - similarity). To separate pairs
-# at 0.40 Tanimoto similarity (matching Hestia / the benchmark), use 1 - 0.40.
+# Distance threshold: 1 - Tanimoto similarity of 0.40.
 THRESHOLD = 0.60
 TEST_RATIO = 0.20
 VAL_RATIO = 0.10
-# Random-atom-molecule null (find_gamma_function defaults): dataset-independent,
-# computed once and cached, reused across all molecule datasets.
+# Random-atom-molecule null, cached and shared by all molecule datasets.
 NULL_N_MOLECULES = 100_000
 NULL_N_PAIRS = 2_000_000
 

@@ -11,8 +11,7 @@ source figure_scripts/_comparison_prepare.sh
 export HF_HOME="$RELAG_EXP_BASE/hf_cache"
 export TRANSFORMERS_OFFLINE=1
 
-# DataSAIL can fail to produce a split for some (dataset, seed); a failed
-# training run is reported and aggregates as missing.
+# Train one (dataset, method, seed); warn and continue on failure.
 train() {  # dtype, method, dataset, seed
     "$DL_PYTHON" "comparison/scripts/deep_learning/train_$1.py" \
         --method "$2" --dataset "$3" --seed "$4" \

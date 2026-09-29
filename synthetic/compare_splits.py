@@ -190,11 +190,7 @@ def build_context(method: str, sequences: list[str], families: np.ndarray,
         import pandas as pd
         from hestia.dataset_generator import HestiaGenerator, SimArguments
         generator = HestiaGenerator(pd.DataFrame({"sequence": sequences}), verbose=False)
-        # denominator="longest" normalises identity by the longer sequence, as
-        # relag's kernel does (GlobalIdentityMode.MaxLength). Hestia's default
-        # normalises by the aligned length, so a short local match between two
-        # unrelated peptides scores ~0.7 and chains every family into a single
-        # connected component, leaving nothing to split.
+        # Identity normalised by the longer sequence.
         context["sim_df"] = generator.calculate_similarity(
             SimArguments(data_type="sequence", field_name="sequence",
                          min_threshold=1.0 - TAU, denominator="longest"))

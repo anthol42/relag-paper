@@ -50,9 +50,8 @@ from rich import print
 
 CASP15_SEQ_URL = "https://predictioncenter.org/download_area/CASP15/sequences/casp15.seq.txt"
 
-# (task_name, url, lmdb_dirname, splits) -- lmdb files live at
-# {extract_dir}/{lmdb_dirname}/{lmdb_dirname}_{split}.lmdb, verified against
-# each torchdrug/datasets/*.py source file.
+# (task_name, url, lmdb_dirname, splits); lmdb files are at
+# {extract_dir}/{lmdb_dirname}/{lmdb_dirname}_{split}.lmdb.
 PEER_LMDB_TASKS = [
     ("fluorescence", "http://s3.amazonaws.com/songlabdata/proteindata/data_pytorch/fluorescence.tar.gz",
      "fluorescence", ["train", "valid", "test"]),
@@ -76,10 +75,7 @@ PEER_LMDB_TASKS = [
      "proteinnet", ["train", "valid", "test"]),
 ]
 
-# (task_name, url, split_name) -- split_name matches each FLIP dataset class's
-# own default in peer/flip.py (AAV="two_vs_many", GB1="two_vs_rest",
-# Thermostability="human_cell"), so this reproduces exactly what PEER's own
-# configs load (they don't override split).
+# (task_name, url, split_name)
 PEER_FLIP_TASKS = [
     ("aav", "https://github.com/J-SNACKKB/FLIP/raw/d5c35cc716ca93c3c74a0b43eef5b60cbf88521f/splits/aav/splits.zip",
      "two_vs_many"),
@@ -171,12 +167,7 @@ def fetch_proteingym_wildtypes(bench_dir: Path) -> list[str]:
 
     from datasets import load_dataset
     print("  Fetching ProteinGym DMS_substitutions from HuggingFace (OATML-Markslab/ProteinGym_v1)...")
-    # name="DMS_substitutions" (config-name lookup) 404s: the repo's README
-    # YAML declares this config's files at glob "data/DMS_substitutions-*",
-    # but the actual files live at "DMS_substitutions/train-*.parquet" (no
-    # "data/" prefix) -- a mismatch on HF's side, not ours. Pointing
-    # data_files at the real glob directly sidesteps the broken config
-    # metadata entirely (verified: yields the expected 2,465,767 rows).
+    # Load the DMS substitution parquet files directly.
     ds = load_dataset("OATML-Markslab/ProteinGym_v1", data_files="DMS_substitutions/train-*.parquet",
                        split="train")
 

@@ -46,8 +46,7 @@ def main():
             if split_path.exists():
                 print(f"[seed={seed}] Already computed, skipping.")
                 continue
-            # ccpart_random's third return is the per-node connected-component labels
-            # (seed-independent; only the test assignment uses the seed).
+            # clusters: per-node connected-component labels.
             train_val, test, clusters = ccpart_random(
                 df, label_name=None, test_size=TEST_RATIO, threshold=THRESHOLD,
                 n_bins=10, sim_df=sim_df, seed=seed, verbose=0)

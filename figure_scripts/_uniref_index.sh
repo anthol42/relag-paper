@@ -1,7 +1,7 @@
-# Sourced by threshold_spread.sh and uniref_ecdf.sh -- not run directly.
+# Sourced by threshold_spread.sh and uniref_ecdf.sh.
 # Builds the ProtSpaM HNSW index over UniRef50 + the protein benchmarks and
-# exports its layer-0 edge graph to $EDGESTORE. Resumable: every stage is
-# skipped if its output file already exists.
+# exports its layer-0 edge graph to $EDGESTORE. Stages with existing outputs
+# are skipped.
 #
 # Needs: UNIREF50_FASTA (path to uniref50.fasta.gz)
 # Optional: BENCHMARK_CACHE_DIR (default .cache/protein_benchmarks),

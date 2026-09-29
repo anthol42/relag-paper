@@ -103,9 +103,7 @@ def run(splits_dir: str, dtype: str, dataset: str, seed: int, max_sec: int, thre
     print(f"[{dataset}][seed={seed}] {len(data)} entities, e_type={e_type} e_sim={e_sim} "
           f"epsilon={epsilon} e_clusters={e_clusters}")
 
-    # Per-dataset clustering cache. NOTE: DataSAIL re-clusters per seed anyway
-    # (it hashes the shuffled input), so across seeds this mostly helps the
-    # epsilon-escalation retries in split_entities, which reuse the same-seed clustering.
+    # Per-dataset DataSAIL clustering cache.
     cache_dir = Path(splits_dir).parent / "cache" / "datasail_cache" / dataset
     cache_dir.mkdir(parents=True, exist_ok=True)
 
@@ -128,8 +126,7 @@ def main():
     p.add_argument("--epsilon", type=float, default=None)
     p.add_argument("--e-clusters", type=int, default=None)
     args = p.parse_args()
-    # Defaults per type. Peptides need e_clusters>=200 to be feasible (mmseqs
-    # yields a dominant cluster at 50); molecules are fine at 50.
+    # Default epsilon and number of clusters per data type.
     default_eps = {"molecule": 0.05, "protein": 0.05}[args.dtype]
     default_ncl = {"molecule": 50, "protein": 200}[args.dtype]
     epsilon = args.epsilon if args.epsilon is not None else default_eps

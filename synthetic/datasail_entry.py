@@ -11,8 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-# Python puts this script's dir (synthetic/) first on sys.path, where
-# synthetic/datasail.py would shadow the real `datasail` package.
+# Remove synthetic/ from sys.path.
 sys.path = [p for p in sys.path if Path(p or ".").resolve() != Path(__file__).resolve().parent]
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "comparison" / "scripts"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "comparison" / "scripts" / "datasail_split"))

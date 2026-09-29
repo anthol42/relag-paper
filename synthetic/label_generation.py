@@ -40,10 +40,8 @@ def properties(sequences: list[str]) -> dict[str, np.ndarray]:
 
 # ──────────────────────────────── signal function ─────────────────────────────
 
-# Reference scale of each property, measured on 5,000 PeptideAtlas-profile seeds
-# (lengths 20-50). Fixed constants, so the annotated and production datasets
-# share exactly the same `signal`. log is applied to the hydrophobic moment
-# first: it is right-skewed (skew 0.48) and would otherwise skew `signal`.
+# (mean, std) of each property on 5,000 PeptideAtlas-profile seeds (lengths
+# 20-50); the hydrophobic moment is log-transformed.
 PROPERTY_SCALE = {                  # name: (mean, std)
     "charge": (-1.655, 2.369),
     "log_hydrophobic_moment": (-0.937, 0.291),

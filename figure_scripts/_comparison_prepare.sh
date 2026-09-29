@@ -1,9 +1,7 @@
-# Sourced by comparison_perf.sh and comparison_leakage.sh -- not run directly.
-# Venvs, DataSAIL image, data download, embeddings and all splits for the
-# comparison benchmark. Venvs, data, embeddings and the datasail/hestia splits
-# are reused if present; the random and relag splits are recomputed.
+# Sourced by comparison_perf.sh and comparison_leakage.sh.
+# Sets up the venvs, DataSAIL image, data, embeddings and all splits.
 #
-# Needs: mmseqs2 (hestia) and apptainer (or singularity) on PATH.
+# Needs: mmseqs2 and apptainer (or singularity) on PATH.
 
 export RELAG_EXP_BASE="$PWD/comparison/scripts"
 VENV_BASE="${RELAG_VENV_BASE:-$HOME/venvs/refnd_exp}"

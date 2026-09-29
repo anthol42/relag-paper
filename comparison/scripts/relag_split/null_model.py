@@ -114,9 +114,8 @@ def null_model(data: list, cfg: NullCfg, n_samples: int = 10_000_000, seed: int 
     return gamma
 
 
-# --- random-atom molecule null (ported from refnd-paper threshold/molecules.py) ---
+# --- random-atom molecule null ---
 # Linear SELFIES chains of bare, valence>=2 atoms, length ~Normal(mean, std) tokens.
-# Zero relation to any real building block -- matched only on coarse size.
 NULL_ATOM_ALPHABET = ["[C]"] * 6 + ["[N]"] * 2 + ["[O]"] * 2 + ["[S]"] * 1
 NULL_MEAN_SIZE = 50.0
 NULL_STD_SIZE = 5.0
@@ -145,8 +144,7 @@ def generate_random_molecule_fps(n: int, seed: int) -> list:
             n_invalid += 1
             continue
         fp = gen.GetFingerprint(mol)
-        # DataStructs.ConvertToNumpyArray is RDKit's documented conversion path;
-        # np.array(fp) via the buffer protocol segfaults on the cluster.
+        # Convert the fingerprint to a numpy bit array.
         arr = np.zeros((fp.GetNumBits(),), dtype=np.int8)
         DataStructs.ConvertToNumpyArray(fp, arr)
         fps.append(BitFingerprint.from_np(arr.astype(np.uint8)))

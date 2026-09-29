@@ -143,9 +143,7 @@ def train_and_evaluate(X_train, y_train, X_val, y_val, X_test, y_test,
         model = Model(embed_dim)
         train_model(model, X_train, y_train, X_val, y_val,
                     task=task, max_epochs=epochs, patience=patience, device=device)
-        # Score test (primary) and train (to measure the overfitting gap =
-        # train - test). Leakage-free splits should show a larger, more honest
-        # gap than random splits, which inflate test via near-duplicates.
+        # Score on test and on train.
         results[name] = evaluate(model, X_test, y_test, task, device)
         results[f"{name}_train"] = evaluate(model, X_train, y_train, task, device)
 

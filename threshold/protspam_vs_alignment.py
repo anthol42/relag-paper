@@ -141,8 +141,7 @@ def main() -> None:
     rng = np.random.default_rng(SEED)
 
     print("[bold][orange2]=== ProtSpaM vs. global alignment: mutation ladder ===[/][/]")
-    # the reservoir pass streams the whole 8.7GB gzipped FASTA, so cache it --
-    # a re-run with the same --n-seeds reuses the pool instead of re-streaming.
+    # Cached pool of seed sequences.
     pool_path = CacheStore().root / f"uniref50_seed_pool_n{args.n_seeds}_cap{LENGTH_CAP}_seed{SEED}.json"
     if pool_path.exists():
         print(f"  [dim]Loading cached seed pool: {pool_path.name}[/]")
@@ -202,10 +201,7 @@ def main() -> None:
         for r in rates
     ]
 
-    # Distances are rounded to --round-digits and the per-pair mutation rate is
-    # dropped (per_level carries it) -- full float repr made the file several MB,
-    # too large to keep in git, and the extra digits are far below the kernels'
-    # resolution.
+    # Round distances to --round-digits.
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with open(args.out, "w") as f:
         json.dump({

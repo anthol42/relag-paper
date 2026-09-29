@@ -47,8 +47,7 @@ DNA_TAG = "[Dy]"
 TRIAZINE_SMARTS = "c1ncncn1"  # bare 1,3,5-triazine aromatic ring, any substitution
 
 # Random-molecule null model: linear SELFIES chains of bare,
-# valence>=2 atoms, chain length ~Normal(mean, std) tokens. Zero relation to
-# BELKA's real building blocks -- matched only on coarse size.
+# valence>=2 atoms, chain length ~Normal(mean, std) tokens.
 NULL_ATOM_ALPHABET = ["[C]"] * 6 + ["[N]"] * 2 + ["[O]"] * 2 + ["[S]"] * 1
 NULL_MEAN_SIZE = 50.0
 NULL_STD_SIZE = 5.0
@@ -223,9 +222,6 @@ def build_hnsw(
         )
 
     if index_path.exists():
-        # Built (possibly on a prior run that then died in the risky
-        # get_layer(0, weights=True) step below) -- skip re-paying the
-        # ~20-30min build cost and just re-attach the same on-disk data.
         print(f"  [dim]Loading cached built index: {index_path.name}[/]")
         hnsw = HNSWState.load(cfg.modality, str(index_path), combined_stream(), **cfg.kernel_params)
     else:
@@ -277,10 +273,7 @@ def generate_random_molecule_fps(n: int, seed: int) -> list:
             continue
 
         fp = morgan_gen.GetFingerprint(mol)
-        # np.array(fp, dtype=bool) relies on ExplicitBitVect's buffer/sequence
-        # protocol, which segfaults on the cluster (see src/fingerprints.py's
-        # belka_fp_worker for the same crash, hit and fixed there already).
-        # DataStructs.ConvertToNumpyArray is RDKit's documented conversion path.
+        # Convert the fingerprint to a numpy bit array.
         arr = np.zeros((fp.GetNumBits(),), dtype=np.int8)
         DataStructs.ConvertToNumpyArray(fp, arr)
         fps.append(BitFingerprint.from_np(arr.astype(bool)))

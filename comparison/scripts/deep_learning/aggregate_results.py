@@ -89,8 +89,7 @@ def process_task(task_type: str, datasets: list, methods: list):
         with open(out_path, "w") as f:
             json.dump(summary, f, indent=2)
 
-        # Overfitting-focused table: for each head, show test, train, and the
-        # gap (train - test). A larger gap = the split exposes more overfitting.
+        # Print test, train and gap (train - test) per head.
         print(f"\n=== {task_type}/{dataset} ===")
         for h in HEADS:
             print(f"  [{h}]  {'method':<10} {'test':>8} {'train':>8} {'gap(tr-te)':>11}  n")

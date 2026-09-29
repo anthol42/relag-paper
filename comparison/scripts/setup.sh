@@ -1,6 +1,5 @@
 #!/bin/bash
-# Create the per-method venvs. Each split method runs in its own venv to avoid
-# dependency conflicts. Re-running only installs what is missing.
+# Create or update the per-method venvs.
 #
 # Optional: RELAG_VENV_BASE (default $HOME/venvs/refnd_exp)
 set -euo pipefail
@@ -16,8 +15,6 @@ make_venv() {  # name, pip args...
     VIRTUAL_ENV="$VENV_BASE/$name" uv pip install "$@"
 }
 
-# refnd_split also loads PeptideAtlas via the repo's src/ (torch, requests, bs4,
-# tqdm) for the protein null model, which needs scipy + selfies.
 make_venv refnd_split  refnd==0.0.3 numpy pandas pyarrow rdkit scipy selfies torch requests beautifulsoup4 tqdm
 make_venv hestia_split hestia-good biopython numpy pandas pyarrow networkx rdkit
 make_venv random_split numpy scikit-learn pandas pyarrow

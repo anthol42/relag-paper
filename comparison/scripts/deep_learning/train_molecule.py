@@ -42,9 +42,7 @@ def main():
     val_idx = np.asarray(val_idx, dtype=np.int64)
     te_idx = np.asarray(te_idx, dtype=np.int64)
 
-    # Degenerate split (e.g. hestia giant-component collapse -> empty test): nothing
-    # to evaluate. Record null and exit 0 so it aggregates as missing rather than
-    # crashing the array task and cancelling finalize.
+    # Empty train or test split: save a null result.
     if te_idx.size == 0 or tr_idx.size == 0:
         print(f"[{args.dataset}][{args.method}][seed={args.seed}] SKIP degenerate split "
               f"(train={tr_idx.size}, val={val_idx.size}, test={te_idx.size}) -> null result")

@@ -50,9 +50,8 @@ DATASETS: dict[str, DatasetConfig] = {
         proximity_threshold=0.5,
         kernel_params={"matrix": ScoringMatrix.Blosum62},
     ),
-    # ── data-starvation benchmark datasets (mirror of refnd_exp) ──────────────
-    # Molecule datasets share TanimotoBit + ChemBERTa; proximity_threshold 0.6
-    # (distance) = 0.4 Tanimoto similarity, matching the cluster benchmark.
+    # ── data-starvation benchmark datasets ──────────────────────────────────
+    # Molecule datasets: TanimotoBit + ChemBERTa, distance threshold 0.6.
     "enzyme_topt": DatasetConfig(
         modality=KernelVariant.AlignmentGlobal,
         metric="pcc",
@@ -97,12 +96,6 @@ DATASETS: dict[str, DatasetConfig] = {
     ),
     "sr_are": DatasetConfig(
         modality=KernelVariant.TanimotoBit,
-        # AUROC, not MCC: SR-ARE is heavily class-imbalanced (~16% positive),
-        # which makes MCC collapse to 0 (or go negative) whenever a model
-        # leans toward the majority class -- especially likely inside
-        # data_starvation's small, community-based train subsets. AUROC
-        # measures ranking quality and isn't sensitive to that threshold
-        # collapse, matching how comparison/ scores this dataset.
         metric="auroc",
         encoder="seyonec/ChemBERTa-zinc-base-v1",
         proximity_threshold=0.6,
@@ -111,12 +104,8 @@ DATASETS: dict[str, DatasetConfig] = {
 }
 
 # TDC molecule datasets: name -> (TDC single_pred module, TDC dataset name,
-# is_classification, label_name). `is_classification` decides int (mcc) vs
-# float (pcc) labels. `label_name` is None for datasets that are their own
-# standalone TDC endpoint; SR-ARE isn't one -- it's one of 12 label columns
-# inside the multi-task Tox21 dataset (tdc.utils.retrieve_label_name_list
-# ('tox21') lists all 12), so it needs the underlying dataset name ("Tox21")
-# plus which column to select.
+# is_classification, label_name). label_name selects a column of a multi-task
+# dataset (SR-ARE in Tox21); None otherwise.
 _TDC_MOLECULES: dict[str, tuple[str, str, bool, str | None]] = {
     "cyp2c19_veith":   ("ADME", "CYP2C19_Veith",             True,  None),
     "caco2_wang":      ("ADME", "Caco2_Wang",                False, None),
@@ -199,11 +188,7 @@ def load_dataset(name: str, cache: CacheStore) -> tuple[list[Any], np.ndarray]:
     return data, labels  # type: ignore[return-value]
 
 
-# PeptideAtlas peptide sequences (APD_*_all.fasta) used in the paper, relative to
-# https://peptideatlas.org/builds/. The builds page used to list them in a static
-# table (one per organism's current build); it is now rendered by JavaScript, so
-# the paper's file set is pinned here. Merging these gives exactly the paper's
-# 3,545,664 unique peptides (<= 100 aa).
+# PeptideAtlas peptide files (APD_*_all.fasta), relative to https://peptideatlas.org/builds/.
 PEPTIDE_ATLAS_FILES = [
     "honeybee/201309/APD_Apis_all.fasta",
     "bburgdorferi_b31/201902/APD_BORBU_all.fasta",

@@ -94,8 +94,7 @@ def embed_enzyme_topt() -> None:
         return
     from esm.sdk.api import ESMProtein, LogitsConfig
 
-    # ESM-C tokenizes the 20 standard AAs plus X (unknown); drop anything else (rare
-    # B/U/Z/O). Enzymes are long (up to ~2000 residues), so embed one at a time.
+    # Keep the 20 standard AAs plus X; embed one sequence at a time.
     sequences = _filter_proteins(DATA_DIR / "protein" / "enzyme_topt.parquet", "label",
                                  set("ACDEFGHIKLMNPQRSTVWYX"))
     model = _load_esmc()

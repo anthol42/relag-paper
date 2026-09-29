@@ -28,8 +28,7 @@ from src.data_starvation import run_singleton_power_experiment
 OUT_DIR = Path("results/data_starvation/singleton_power")
 SUMMARY_PATH = OUT_DIR / "summary.json"
 
-# (threshold, gamma, objective) per dataset -- matches each dataset's own
-# data_starvation/<name>.py script.
+# (threshold, gamma, objective) per dataset.
 CONFIGS: dict[str, dict] = {
     "dbaasp":           dict(threshold=0.3, gamma=1.0, objective=LeidenObjective.Modularity),
     "lipophilicity":    dict(threshold=0.4, gamma=1.0, objective=LeidenObjective.Modularity),

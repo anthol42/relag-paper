@@ -59,8 +59,7 @@ def download_enzyme_topt() -> None:
         return
     from huggingface_hub import snapshot_download
 
-    # DeepET-sourced Topt regression, the version xTrimoPGLM/Hestia used.
-    # Pool the published train+test and re-split downstream (matches the GUE convention).
+    # Pool the published train and test sets.
     d = snapshot_download(repo_id="proteinglm/optimal_temperature", repo_type="dataset")
     frames = [pd.read_parquet(f"{d}/data/{s}-00000-of-00001.parquet") for s in ("train", "test")]
     df = pd.concat(frames, ignore_index=True)

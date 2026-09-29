@@ -7,9 +7,7 @@ import time
 from contextlib import contextmanager
 from pathlib import Path
 
-# Repo root (relag-paper/), independent of cwd -- split_utils.py lives at
-# comparison/scripts/split_utils.py. Used by relag_split/run_protein.py to load
-# PeptideAtlas (for the null model) via src.datasets.
+# Repo root (relag-paper/).
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # Experiment root: data/, splits/, embeddings/, results/ live under it.
@@ -65,8 +63,7 @@ def save_split(splits_dir: str, method: str, dataset: str, seed: int,
     out_dir = Path(splits_dir) / method / dataset
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{seed}.json"
-    # Write atomically: a killed job must never leave a truncated stub that
-    # later gets skipped by the "if path.exists()" logic.
+    # Write to a temp file, then rename.
     tmp = out_dir / f"{seed}.json.tmp"
     with open(tmp, "w") as f:
         json.dump({"train": train, "val": val, "test": test}, f)
