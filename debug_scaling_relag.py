@@ -4,7 +4,7 @@ Post-filtering is disabled so `partition()` timing isn't polluted by its
 violation-checking cost.
 
 Usage:
-    uv run python test_scaling_detailed_refnd.py
+    uv run python debug_scaling_relag.py
 """
 import argparse
 import json

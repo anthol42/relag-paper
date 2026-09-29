@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Random splits for all datasets."""
+"""Random splits for all protein and molecule datasets."""
 import os
 import argparse
 import sys
@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from split_utils import (save_split, track_split, SEEDS,
-                         PROTEIN_DATASETS, MOLECULE_DATASETS, DNA_DATASETS)
+                         PROTEIN_DATASETS, MOLECULE_DATASETS)
 
 TEST_RATIO = 0.20
 VAL_RATIO = 0.10
@@ -47,17 +47,6 @@ def run_molecule(splits_dir: str, dataset: str, seeds: list):
             print(f"[{dataset}][seed={seed}] train={len(train)} val={len(val)} test={len(test)}")
 
 
-def run_dna(splits_dir: str, dataset: str, seeds: list):
-    import pandas as pd
-    df = pd.read_csv(Path(splits_dir).parent / "data" / "dna" / dataset / "pooled.csv")
-    n = len(df)
-    with track_split("random", dataset, splits_dir):
-        for seed in seeds:
-            train, val, test = random_split(n, TEST_RATIO, VAL_RATIO, seed)
-            save_split(splits_dir, "random", dataset, seed, train, val, test)
-            print(f"[{dataset}][seed={seed}] train={len(train)} val={len(val)} test={len(test)}")
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--splits-dir", default=str(Path(os.environ.get("RELAG_EXP_BASE", str(Path(__file__).resolve().parent.parent))) / "splits"))
@@ -68,8 +57,6 @@ def main():
         run_protein(args.splits_dir, ds, args.seeds)
     for ds in MOLECULE_DATASETS:
         run_molecule(args.splits_dir, ds, args.seeds)
-    for ds in DNA_DATASETS:
-        run_dna(args.splits_dir, ds, args.seeds)
     print("Random splits complete.")
 
 
