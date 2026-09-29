@@ -2,8 +2,8 @@
 so it plugs into `synthetic.compare_splits` like any in-process split method.
 
 The image is located via --datasail-sif / $DATASAIL_SIF, falling back to
-$RELAG_EXP_BASE/datasail.sif (where comparison/scripts/datasail_split/submit.sh
-expects it). The runtime is `apptainer`, or `singularity` if that is what exists.
+$RELAG_EXP_BASE/datasail.sif, then comparison/scripts/datasail.sif (where
+comparison/scripts/datasail_split/build_sif.sh builds it). The runtime is `apptainer`, or `singularity` if that is what exists.
 """
 
 from __future__ import annotations

@@ -6,7 +6,7 @@ the default ccpart, which is deterministic -> identical test sets across seeds.
 NOTE: HestiaGenerator.calculate_partitions cannot be used for this: it rejects
 'ccpart_random' in validation, and even its dead ccpart_random branch never forwards
 the seed. So we compute similarity once and call ccpart_random directly with seed=seed.
-Validation is carved from train via split_train_val (consistent with relag/mmseqs).
+Validation is carved from train via split_train_val (consistent with relag).
 """
 import os
 import argparse

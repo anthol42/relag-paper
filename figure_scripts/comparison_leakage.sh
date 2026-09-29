@@ -2,7 +2,7 @@
 # Leakage ECDF figures (leakage_ecdf_{molecule,protein})
 # -> comparison/results/leakage/{molecule,protein}/{dataset}/{method}_seed1.npy
 #
-# Needs: mmseqs2 and apptainer (or singularity) on PATH.
+# Needs: mmseqs2 (hestia) and apptainer (or singularity) on PATH.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 

@@ -1,7 +1,0 @@
-{
-  "method": "refnd",
-  "dataset": "ames",
-  "seed": null,
-  "seconds": 1.0,
-  "peak_rss_mb": 356.1
-}

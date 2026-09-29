@@ -1,7 +1,0 @@
-{
-  "method": "hestia",
-  "dataset": "dbaasp_amp",
-  "seed": null,
-  "seconds": 2.49,
-  "peak_rss_mb": 1035.7
-}

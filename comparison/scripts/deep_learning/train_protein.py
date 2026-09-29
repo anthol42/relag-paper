@@ -12,7 +12,7 @@ from common import (
 )
 
 BASE = Path(os.environ.get("RELAG_EXP_BASE", str(Path(__file__).resolve().parent.parent)))
-PROTEIN_METHODS = ["refnd", "random", "mmseqs2", "hestia", "datasail"]
+PROTEIN_METHODS = ["refnd", "random", "hestia", "datasail"]
 # Regression target column per protein dataset.
 TARGET_COL = {"dbaasp_amp": "log_mic", "enzyme_topt": "label"}
 

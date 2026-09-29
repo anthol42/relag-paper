@@ -75,39 +75,10 @@ def _embed_esmc(sequences: list[str], device: str) -> torch.Tensor:
 
 
 def _embed_hf(model_name: str, data: list[Any], device: str) -> torch.Tensor:
-    from transformers import AutoTokenizer
+    from transformers import AutoModel, AutoTokenizer
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-
-    # transformers==4.57.6 (Biohub fork, pulled in by esm) has a bug where
-    # AutoModel.register() rejects remote config classes that are structurally
-    # identical to built-in ones but differ by Python module path (e.g. DNABERT-2).
-    # Patch the check away temporarily so the correct remote model class is used.
-    import transformers.models.auto.auto_factory as _af
-
-    _cls = _af._BaseAutoModelClass
-    _orig_register = _cls.register
-
-    @classmethod  # type: ignore[misc]
-    def _patched_register(cls, config_class, model_class, exist_ok=False):
-        model_class.config_class = config_class
-        _orig_register.__func__(cls, config_class, model_class, exist_ok=True)
-
-    _cls.register = _patched_register
-    try:
-        from transformers import AutoModel
-        model = AutoModel.from_pretrained(model_name, trust_remote_code=True).to(device).eval()
-    finally:
-        _cls.register = _orig_register
-
-    # DNABERT-2's flash_attn_triton uses tl.dot(trans_b=True) which was removed in
-    # Triton 3.x. Null out the module-level reference so the model's forward falls
-    # through to the standard PyTorch attention path instead.
-    import sys
-    for mod_name, mod in sys.modules.items():
-        if "bert_layers" in mod_name and getattr(mod, "flash_attn_qkvpacked_func", None) is not None:
-            mod.flash_attn_qkvpacked_func = None
-            break
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModel.from_pretrained(model_name).to(device).eval()
 
     texts = [str(x) for x in data]
 
@@ -122,9 +93,7 @@ def _embed_hf(model_name: str, data: list[Any], device: str) -> torch.Tensor:
                 truncation=True,
                 max_length=512,
             ).to(device)
-            out = model(**enc)
-            # Some models (e.g. DNABERT-2) return a tuple rather than ModelOutput
-            last_hidden = out.last_hidden_state if hasattr(out, "last_hidden_state") else out[0]
+            last_hidden = model(**enc).last_hidden_state
             # mean pooling over non-padding tokens
             mask = enc["attention_mask"].unsqueeze(-1).float()
             emb = (last_hidden * mask).sum(dim=1) / mask.sum(dim=1)

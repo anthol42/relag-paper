@@ -61,7 +61,6 @@ def _load_items(dataset: str, cache: CacheStore) -> list[str]:
 METHODS: dict[str, str] = {
     "refnd": "runtime_scripts.split_relag",
     "hestia": "runtime_scripts.split_hestia",
-    # "hnsw-only": "runtime_scripts.split_hnsw_only",
 }
 
 # ── FASTA helpers ──────────────────────────────────────────────────────────────

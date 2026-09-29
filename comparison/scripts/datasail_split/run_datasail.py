@@ -8,9 +8,8 @@ Unlike the old homemade datasail_split scripts (Tanimoto/edges -> SpectralCluste
 -> stratify WITHIN clusters, which leaks because similar items land in both train and
 test), C1e assigns WHOLE clusters to a single split, so it is genuinely leakage-aware.
 
-Similarity is DataSAIL-native: ecfp (Morgan/Tanimoto) for molecules, cd-hit-est
-(nucleotide clustering) for DNA. (MASH is DataSAIL's other genomic option but is a
-whole-genome distance sketch, inappropriate for short FASTA-style sequences.)
+Similarity is DataSAIL-native: ecfp (Morgan/Tanimoto) for molecules, mmseqs for
+proteins.
 Seed control: DataSAIL shuffles its input via the global numpy RNG
 (reader/utils.permute -> np.random.permutation), so np.random.seed(seed) yields a
 distinct split per seed.
@@ -34,16 +33,13 @@ def load_entities(splits_dir: str, dtype: str, dataset: str):
         df = pd.read_parquet(base / "molecule" / f"{dataset}.parquet")
         col = "smiles" if "smiles" in df.columns else "Drug"
         return df[col].tolist()
-    if dtype == "protein":
-        df = pd.read_parquet(base / "protein" / f"{dataset}.parquet")
-        return df["sequence"].tolist()
-    df = pd.read_csv(base / "dna" / dataset / "pooled.csv")
+    df = pd.read_parquet(base / "protein" / f"{dataset}.parquet")
     return df["sequence"].tolist()
 
 
 # DataSAIL-native similarity per data type.
-E_TYPE = {"molecule": "M", "protein": "P", "dna": "G"}
-E_SIM = {"molecule": "ecfp", "protein": "mmseqs", "dna": "cdhit_est"}
+E_TYPE = {"molecule": "M", "protein": "P"}
+E_SIM = {"molecule": "ecfp", "protein": "mmseqs"}
 
 
 def split_entities(data: dict, e_type: str, e_sim: str, seed: int, max_sec: int,
@@ -123,23 +119,19 @@ def run(splits_dir: str, dtype: str, dataset: str, seed: int, max_sec: int, thre
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--splits-dir", default=str(Path(os.environ.get("RELAG_EXP_BASE", str(Path(__file__).resolve().parent.parent))) / "splits"))
-    p.add_argument("--dtype", choices=["molecule", "protein", "dna"], required=True)
+    p.add_argument("--dtype", choices=["molecule", "protein"], required=True)
     p.add_argument("--dataset", required=True)
     p.add_argument("--seed", type=int, required=True)
     p.add_argument("--max-sec", type=int, default=1000)
     p.add_argument("--threads", type=int, default=8)
-    # DNA needs relaxed size tolerance + more clusters: cd-hit-est floors at 80%
-    # identity, so short DNA barely clusters (near-singletons) and the default
-    # 5% tolerance ILP is infeasible. Molecules cluster well and use the tighter
-    # DataSAIL defaults (epsilon=0.05, e_clusters=50).
+    # Override the per-type defaults below.
     p.add_argument("--epsilon", type=float, default=None)
     p.add_argument("--e-clusters", type=int, default=None)
     args = p.parse_args()
     # Defaults per type. Peptides need e_clusters>=200 to be feasible (mmseqs
-    # yields a dominant cluster at 50); molecules are fine at 50; DNA needs more
-    # clusters + looser tolerance (cd-hit-est 80% floor -> near-singletons).
-    default_eps = {"molecule": 0.05, "protein": 0.05, "dna": 0.25}[args.dtype]
-    default_ncl = {"molecule": 50, "protein": 200, "dna": 100}[args.dtype]
+    # yields a dominant cluster at 50); molecules are fine at 50.
+    default_eps = {"molecule": 0.05, "protein": 0.05}[args.dtype]
+    default_ncl = {"molecule": 50, "protein": 200}[args.dtype]
     epsilon = args.epsilon if args.epsilon is not None else default_eps
     e_clusters = args.e_clusters if args.e_clusters is not None else default_ncl
     with track_split("datasail", args.dataset, args.splits_dir, seed=args.seed):

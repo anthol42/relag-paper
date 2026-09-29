@@ -5,6 +5,9 @@ Writes (under $RELAG_EXP_BASE, default: this directory):
   data/protein/enzyme_topt.parquet   sequence, label
   data/molecule/{dataset}.parquet    smiles, label
 
+Existing files are left untouched: compute_embeddings.py rewrites the protein
+parquets filtered, and the splits/embeddings index into those filtered files.
+
 Run with the deep_learning venv (see setup.sh):
     $HOME/venvs/refnd_exp/deep_learning/bin/python download_data.py
 """
@@ -34,6 +37,10 @@ MOLECULE_TASKS = {
 
 
 def download_dbaasp() -> None:
+    out = PROTEIN_DIR / "dbaasp_amp.parquet"
+    if out.exists():
+        print(f"exists, skip: {out}")
+        return
     from qmap import DBAASPDataset
 
     df = DBAASPDataset().tabular(["id", "sequence", "Escherichia coli"])
@@ -41,11 +48,15 @@ def download_dbaasp() -> None:
     df = df.rename(columns={"Escherichia coli": "mic"})
     df["log_mic"] = np.log10(df["mic"].astype(float))
     df = df[["id", "sequence", "log_mic"]].dropna().reset_index(drop=True)
-    df.to_parquet(PROTEIN_DIR / "dbaasp_amp.parquet", index=False)
+    df.to_parquet(out, index=False)
     print(f"Saved {len(df)} protein sequences")
 
 
 def download_enzyme_topt() -> None:
+    out = PROTEIN_DIR / "enzyme_topt.parquet"
+    if out.exists():
+        print(f"exists, skip: {out}")
+        return
     from huggingface_hub import snapshot_download
 
     # DeepET-sourced Topt regression, the version xTrimoPGLM/Hestia used.
@@ -55,7 +66,7 @@ def download_enzyme_topt() -> None:
     df = pd.concat(frames, ignore_index=True)
     df = df.rename(columns={"seq": "sequence"})[["sequence", "label"]].dropna()
     df = df.drop_duplicates(subset="sequence").reset_index(drop=True)
-    df.to_parquet(PROTEIN_DIR / "enzyme_topt.parquet", index=False)
+    df.to_parquet(out, index=False)
     print(f"Saved {len(df)} enzyme sequences (Topt regression)")
 
 
@@ -64,12 +75,16 @@ def download_molecules() -> None:
 
     module_map = {"ADME": ADME, "Tox": Tox}
     for name, (module_name, tdc_name, label_name) in MOLECULE_TASKS.items():
+        out = MOLECULE_DIR / f"{name}.parquet"
+        if out.exists():
+            print(f"exists, skip: {out}")
+            continue
         cls = module_map[module_name]
         data = cls(name=tdc_name, label_name=label_name) if label_name else cls(name=tdc_name)
         # TDC returns Drug (SMILES) and Y (label)
         df = data.get_data()[["Drug", "Y"]].dropna().reset_index(drop=True)
         df.columns = ["smiles", "label"]
-        df.to_parquet(MOLECULE_DIR / f"{name}.parquet", index=False)
+        df.to_parquet(out, index=False)
         print(f"Saved {len(df)} molecules for {name}")
 
 

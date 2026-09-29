@@ -1,8 +1,8 @@
 #!/bin/bash
-# Compute every split (random, relag, mmseqs2, hestia, datasail) for the
+# Compute every split (random, relag, hestia, datasail) for the
 # molecule + protein datasets, one after another, into $BASE/splits/.
 #
-# Needs: mmseqs2 on PATH (mmseqs2 + hestia), apptainer or singularity on PATH
+# Needs: mmseqs2 on PATH (hestia), apptainer or singularity on PATH
 # and $BASE/datasail.sif (datasail_split/build_sif.sh), venvs from setup.sh.
 set -euo pipefail
 
@@ -27,11 +27,6 @@ for ds in "${PROTEIN[@]}"; do
 done
 for ds in "${MOLECULE[@]}"; do
     "$VENV_BASE/refnd_split/bin/python" relag_split/run_molecule.py --splits-dir "$SPLITS" --dataset "$ds"
-done
-
-echo "=== mmseqs2 splits ==="
-for ds in "${PROTEIN[@]}"; do
-    "$VENV_BASE/mmseqs_split/bin/python" mmseqs_split/run_protein.py --splits-dir "$SPLITS" --dataset "$ds" --threads "$THREADS"
 done
 
 echo "=== hestia splits ==="

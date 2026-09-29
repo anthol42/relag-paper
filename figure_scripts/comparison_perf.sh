@@ -2,7 +2,7 @@
 # Performance figure (perf_combined_mlp)
 # -> comparison/results/{molecule,protein}/{dataset}/summary.json
 #
-# Needs: mmseqs2 and apptainer (or singularity) on PATH. Uses a GPU if available.
+# Needs: mmseqs2 (hestia) and apptainer (or singularity) on PATH. Uses a GPU if available.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 

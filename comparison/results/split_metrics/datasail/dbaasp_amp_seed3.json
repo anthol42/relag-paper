@@ -1,7 +1,0 @@
-{
-  "method": "datasail",
-  "dataset": "dbaasp_amp",
-  "seed": 3,
-  "seconds": 46.74,
-  "peak_rss_mb": 1275.7
-}

@@ -1,7 +1,0 @@
-{
-  "method": "hestia",
-  "dataset": "enzyme_topt",
-  "seed": null,
-  "seconds": 2.04,
-  "peak_rss_mb": 742.1
-}

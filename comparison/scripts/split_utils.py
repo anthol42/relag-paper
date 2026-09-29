@@ -8,30 +8,21 @@ from contextlib import contextmanager
 from pathlib import Path
 
 # Repo root (relag-paper/), independent of cwd -- split_utils.py lives at
-# comparison/scripts/split_utils.py.
+# comparison/scripts/split_utils.py. Used by relag_split/run_protein.py to load
+# PeptideAtlas (for the null model) via src.datasets.
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
-# comparison/ protein dataset key -> src/datasets.py loader key. dbaasp_amp has
-# no dedicated loader; src.datasets' "dbaasp" (DBAASP, L-amino/canonical only,
-# E. coli MIC labels) is the closest auto-downloadable equivalent.
-_PROTEIN_SRC_DATASET = {
-    "dbaasp_amp": "dbaasp",
-    "enzyme_topt": "enzyme_topt",
-}
+# Experiment root: data/, splits/, embeddings/, results/ live under it.
+BASE = Path(os.environ.get("RELAG_EXP_BASE", str(Path(__file__).resolve().parent)))
 
 
 def load_protein_sequences(dataset: str) -> list[str]:
-    """Sequences for a comparison/ protein dataset key, via src/datasets.py's
-    auto-downloading loaders (no comparison/data/ parquet required, no
-    hardcoded paths -- runs on any machine)."""
-    import sys
-    sys.path.insert(0, str(REPO_ROOT))
-    from src.cache import CacheStore
-    from src.datasets import load_dataset
-
-    src_name = _PROTEIN_SRC_DATASET[dataset]
-    sequences, _labels = load_dataset(src_name, CacheStore(root=str(REPO_ROOT / ".cache")))
-    return list(sequences)
+    """Sequences for a protein dataset, from $BASE/data/protein/{dataset}.parquet
+    (written by download_data.py, filtered by compute_embeddings.py). Every split
+    method, training and leakage index into this same file, so indices line up."""
+    import pandas as pd
+    df = pd.read_parquet(BASE / "data" / "protein" / f"{dataset}.parquet")
+    return df["sequence"].tolist()
 
 
 def _peak_rss_mb() -> float:
@@ -193,13 +184,4 @@ MOLECULE_DATASETS = [
     "ames",
     "lipophilicity",
     "sr_are",  # Tox21 SR-ARE assay (imbalanced, benefits from graph-based splitting)
-]
-
-DNA_DATASETS = [
-    "gue_prom_core_all",   # core promoter regions
-    "gue_prom_300_all",    # larger (300 bp) promoter regions
-    "gue_emp_h3",          # epigenetic markers H3
-    "gue_emp_h4",          # epigenetic markers H4
-    "gue_mouse_0",         # mouse TF-binding regions
-    "deeppromoter",        # E. coli strong vs. weak promoters (khanhlee/deepPromoter)
 ]

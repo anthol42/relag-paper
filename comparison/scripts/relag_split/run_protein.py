@@ -24,6 +24,8 @@ def build_graph_and_communities(sequences: list):
     from refnd.core import (HNSWState, INWeightType, LeidenObjective,
                             find_communities, find_components)
     from null_model import null_model, NullCfg
+    # The null is fit on PeptideAtlas, loaded via the repo's src.datasets.
+    sys.path.insert(0, str(REPO_ROOT))
     from src.cache import CacheStore
     from src.datasets import load_dataset
 

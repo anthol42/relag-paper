@@ -30,15 +30,6 @@ MOLECULE_DATASETS = [
     "sr_are",
 ]
 
-DNA_DATASETS = [
-    "gue_prom_core_all",   # core promoter regions
-    "gue_prom_300_all",    # larger (300 bp) promoter regions
-    "gue_emp_h3",          # epigenetic markers H3
-    "gue_emp_h4",          # epigenetic markers H4
-    "gue_mouse_0",         # mouse TF-binding regions
-    "deeppromoter",        # E. coli strong vs. weak promoters (khanhlee/deepPromoter)
-]
-
 DATASET_CONFIG = {
     "dbaasp_amp":          {"embed": "protein_esmc.pt",           "metric": "pcc",   "task": "regression"},
     "enzyme_topt":         {"embed": "protein_enzyme_topt.pt",     "metric": "pcc",   "task": "regression"},
@@ -48,12 +39,6 @@ DATASET_CONFIG = {
     "ames":                {"embed": "mol_ames.pt",                 "metric": "auroc", "task": "classification"},
     "lipophilicity":       {"embed": "mol_lipophilicity.pt",       "metric": "pcc",   "task": "regression"},
     "sr_are":              {"embed": "mol_sr_are.pt",              "metric": "auroc", "task": "classification"},
-    "gue_prom_core_all":   {"embed": "dna_gue_prom_core_all.pt",   "metric": "auroc", "task": "classification"},
-    "gue_prom_300_all":    {"embed": "dna_gue_prom_300_all.pt",    "metric": "auroc", "task": "classification"},
-    "gue_emp_h3":          {"embed": "dna_gue_emp_h3.pt",          "metric": "auroc", "task": "classification"},
-    "gue_emp_h4":          {"embed": "dna_gue_emp_h4.pt",          "metric": "auroc", "task": "classification"},
-    "gue_mouse_0":         {"embed": "dna_gue_mouse_0.pt",         "metric": "auroc", "task": "classification"},
-    "deeppromoter":        {"embed": "dna_deeppromoter.pt",        "metric": "auroc", "task": "classification"},
 }
 
 

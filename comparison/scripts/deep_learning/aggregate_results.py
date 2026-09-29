@@ -11,16 +11,11 @@ from scipy.stats import wilcoxon
 BASE = Path(os.environ.get("RELAG_EXP_BASE", str(Path(__file__).resolve().parent.parent)))
 RESULTS_DIR = BASE / "results"
 
-PROTEIN_METHODS  = ["refnd", "random", "mmseqs2", "hestia", "datasail"]
+PROTEIN_METHODS  = ["refnd", "random", "hestia", "datasail"]
 MOLECULE_METHODS = ["refnd", "random", "hestia", "datasail"]
-DNA_METHODS      = ["refnd", "random", "hestia"]
 
 MOLECULE_DATASETS = [
     "cyp2c19_veith", "caco2_wang", "pgp_broccatelli", "ames", "lipophilicity", "sr_are",
-]
-DNA_DATASETS = [
-    "gue_prom_core_all", "gue_prom_300_all", "gue_emp_h3", "gue_emp_h4", "gue_mouse_0",
-    "deeppromoter",
 ]
 
 HEADS = ["linear", "mlp"]
@@ -120,10 +115,6 @@ def main():
     print("\n" + "="*60)
     print("MOLECULE")
     wilcoxon_table.update(process_task("molecule", MOLECULE_DATASETS, MOLECULE_METHODS))
-
-    print("\n" + "="*60)
-    print("DNA")
-    wilcoxon_table.update(process_task("dna", DNA_DATASETS, DNA_METHODS))
 
     # Save Wilcoxon table
     wil_path = RESULTS_DIR / "wilcoxon_table.json"

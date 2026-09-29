@@ -1,7 +1,7 @@
 #!/bin/bash
 # Build the DataSAIL Apptainer image from datasail.def into $BASE/datasail.sif,
-# where submit.sh and synthetic/datasail.py look for it. Needs internet; on the
-# cluster run it on a login node after `module load apptainer/1.4.5`.
+# where run_splits.sh and synthetic/datasail.py look for it. Needs internet and
+# apptainer (or singularity) on PATH.
 #
 #   build_sif.sh [--relock] [OUT.sif]
 #     default   install the exact packages pinned in datasail.lock

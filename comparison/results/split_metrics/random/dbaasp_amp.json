@@ -1,7 +1,0 @@
-{
-  "method": "random",
-  "dataset": "dbaasp_amp",
-  "seed": null,
-  "seconds": 0.1,
-  "peak_rss_mb": 116.1
-}

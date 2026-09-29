@@ -172,7 +172,7 @@ def null_model_scores(
     full null distribution, e.g. a CDF usable at arbitrary distances.
 
     shuffle=True (default) element-shuffles each sampled item before scoring
-    — appropriate for sequences (peptides/DNA), where a shuffled sequence is
+    — appropriate for sequences (peptides), where a shuffled sequence is
     still a syntactically valid "no real structure" random baseline with the
     same composition. shuffle=False instead pairs up random REAL (unshuffled)
     items directly — needed for combinatorial libraries built on a shared

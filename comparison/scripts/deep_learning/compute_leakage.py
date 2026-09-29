@@ -42,10 +42,7 @@ def load_items(dtype, dataset):
     if dtype == "molecule":
         df = pd.read_parquet(BASE / "data" / "molecule" / f"{dataset}.parquet")
         return build_fingerprints(df["smiles"].tolist())
-    if dtype == "protein":
-        return load_protein_sequences(dataset)
-    df = pd.read_csv(BASE / "data" / "dna" / dataset / "pooled.csv")
-    return df["sequence"].tolist()
+    return load_protein_sequences(dataset)
 
 
 def nn_call(dtype, queries, references, threads):
@@ -54,22 +51,15 @@ def nn_call(dtype, queries, references, threads):
         return exact_nearest_neighbors(
             KernelVariant.TanimotoBit, queries, references, 1,
             threads=threads, progress=False)
-    if dtype == "protein":
-        # Global alignment identity, matching the relag protein split.
-        return exact_nearest_neighbors(
-            KernelVariant.AlignmentGlobal, queries, references, 1,
-            threads=threads, progress=False)
-    from refnd.kernels.alignments import LocalIdentityMode, CoverageMode, ScoringMatrix
+    # Global alignment identity, matching the relag protein split.
     return exact_nearest_neighbors(
-        KernelVariant.AlignmentLocal, queries, references, 1,
-        threads=threads, progress=False,
-        identity_mode=LocalIdentityMode.MinSeqLength, cov_mode=CoverageMode.ShorterSeq,
-        min_coverage=0.7, matrix=ScoringMatrix.Dnafull)
+        KernelVariant.AlignmentGlobal, queries, references, 1,
+        threads=threads, progress=False)
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dtype", choices=["molecule", "protein", "dna"], required=True)
+    ap.add_argument("--dtype", choices=["molecule", "protein"], required=True)
     ap.add_argument("--dataset", required=True)
     ap.add_argument("--method", required=True)
     ap.add_argument("--seed", type=int, default=1)

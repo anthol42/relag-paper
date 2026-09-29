@@ -1,7 +1,0 @@
-{
-  "method": "hestia",
-  "dataset": "ames",
-  "seed": null,
-  "seconds": 13.48,
-  "peak_rss_mb": 348.4
-}

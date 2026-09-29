@@ -1,7 +1,0 @@
-{
-  "method": "random",
-  "dataset": "gue_mouse_0",
-  "seed": null,
-  "seconds": 0.04,
-  "peak_rss_mb": 233.6
-}

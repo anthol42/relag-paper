@@ -7,7 +7,7 @@ from typing import Any
 import numpy as np
 
 from refnd.kernels import KernelVariant
-from refnd.kernels.alignments import ScoringMatrix, CoverageMode, LocalIdentityMode
+from refnd.kernels.alignments import ScoringMatrix
 
 from .cache import CacheStore
 
@@ -35,16 +35,6 @@ DATASETS: dict[str, DatasetConfig] = {
         encoder="seyonec/ChemBERTa-zinc-base-v1",
         proximity_threshold=0.4,
         kernel_params={},
-    ),
-    "prom_core_all": DatasetConfig(
-        modality=KernelVariant.AlignmentLocal,
-        metric="mcc",
-        encoder="zhihan1996/DNABERT-2-117M",
-        proximity_threshold=0.35,
-        kernel_params={"matrix": ScoringMatrix.Dnafull,
-                       "identity_mode": LocalIdentityMode.MinSeqLength,
-                       "cov_mode": CoverageMode.ShorterSeq,
-                       "min_coverage": 0.7},
     ),
     "belka": DatasetConfig(
         modality=KernelVariant.TanimotoBit,
@@ -202,8 +192,6 @@ def load_dataset(name: str, cache: CacheStore) -> tuple[list[Any], np.ndarray]:
         cache.store_dataset(f"{name}_smiles", smiles, np.array([]))
         from refnd.utils import BitFingerprint
         return [BitFingerprint.from_np(row) for row in fp_arrays], labels
-    elif name == "prom_core_all":
-        data, labels = _load_prom_core_all()
     else:
         raise ValueError(f"Unknown dataset: {name!r}")
 
@@ -621,17 +609,3 @@ def tiny_imagenet_grayscale_vectors(
     if cache is not None:
         cache.store_dataset(cache_name, vectors, labels)
     return vectors, labels
-
-
-def _load_prom_core_all() -> tuple[list[str], np.ndarray]:
-    import io
-    import requests
-    import pandas as pd
-
-    url = "https://huggingface.co/datasets/leannmlindsey/GUE/resolve/main/GUE/prom_core_all/train.csv"
-    print("Downloading GUE prom_core_all dataset...")
-    resp = requests.get(url, timeout=60)
-    resp.raise_for_status()
-
-    df = pd.read_csv(io.StringIO(resp.text))
-    return df["sequence"].tolist(), np.array(df["label"].values, dtype=np.int64)

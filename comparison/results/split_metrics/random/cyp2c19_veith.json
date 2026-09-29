@@ -1,7 +1,0 @@
-{
-  "method": "random",
-  "dataset": "cyp2c19_veith",
-  "seed": null,
-  "seconds": 0.08,
-  "peak_rss_mb": 136.7
-}
