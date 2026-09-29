@@ -1,7 +1,7 @@
 """Threshold sweep for peptides: DBAASP (train) vs. PeptideAtlas (production).
 
 Usage:
-    uv run python -m thresholdv2.peptides
+    uv run python -m threshold.peptides
 """
 
 from __future__ import annotations

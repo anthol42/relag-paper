@@ -8,7 +8,7 @@ grayscaled to match MNIST's shape -- rather than any kind of shuffled MNIST
 way there is for a variable-length sequence or a sparse bit fingerprint).
 
 Usage:
-    uv run python -m thresholdv2.mnist
+    uv run python -m threshold.mnist
 """
 
 from __future__ import annotations

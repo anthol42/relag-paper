@@ -199,68 +199,53 @@ def load_dataset(name: str, cache: CacheStore) -> tuple[list[Any], np.ndarray]:
     return data, labels  # type: ignore[return-value]
 
 
+# PeptideAtlas peptide sequences (APD_*_all.fasta) used in the paper, relative to
+# https://peptideatlas.org/builds/. The builds page used to list them in a static
+# table (one per organism's current build); it is now rendered by JavaScript, so
+# the paper's file set is pinned here. Merging these gives exactly the paper's
+# 3,545,664 unique peptides (<= 100 aa).
+PEPTIDE_ATLAS_FILES = [
+    "honeybee/201309/APD_Apis_all.fasta",
+    "bburgdorferi_b31/201902/APD_BORBU_all.fasta",
+    "cow/201112/APD_Bt_all.fasta",
+    "celegans/201309/APD_Ce_all.fasta",
+    "drosophila/201208/APD_Dm_all.fasta",
+    "zebrafish/201403/APD_Dr_all.fasta",
+    "chicken/201607/APD_CHICK_all.fasta",
+    "halobacterium/201308/APD_Ha_all.fasta",
+    "horse/201304/APD_MYG_all.fasta",
+    "human/202012/APD_Hs_all.fasta",
+    "leptospirainterrogans/201308/APD_Li_all.fasta",
+    "mouse/201506/APD_Mm_all.fasta",
+    "mtuberculosis/201307/APD_MTB_all.fasta",
+    "pfalciparum/201209/APD_Pf_all.fasta",
+    "pyoelii/201209/APD_Py_all.fasta",
+    "pig/201411/APD_Pig_all.fasta",
+    "rat/201311/APD_Rn_all.fasta",
+    "yeast/201303/APD_Sc_all.fasta",
+    "fissionYeast/201208/APD_SPOM_all.fasta",
+]
+
+
 def _load_peptide_atlas() -> tuple[list[str], np.ndarray]:
     fasta_path = Path(".cache/peptide_atlas.fasta")
     if not fasta_path.exists():
-        import re
-        import sys
         from glob import glob
         from warnings import warn
         import requests
-        from bs4 import BeautifulSoup
         from tqdm import tqdm
 
         cache_files = Path(".cache/files")
         cache_files.mkdir(parents=True, exist_ok=True)
 
-        print("Fetching PeptideAtlas build list...")
-        resp = requests.get("https://peptideatlas.org/builds/", timeout=60)
-        resp.raise_for_status()
-        soup  = BeautifulSoup(resp.text, "html.parser")
-        table = soup.find("table", {"id": "bdtable"})
-        if table is None:
-            raise ValueError("PeptideAtlas build table not found")
-
-        thead      = table.find("thead")
-        header_row = (thead or table).find("tr")
-        headers    = [th.get_text(strip=True) for th in header_row.find_all(["th", "td"])]
-        tbody      = table.find("tbody")
-        data_rows  = (tbody or table).find_all("tr")
-        if not thead:
-            data_rows = data_rows[1:]
-
-        rows = []
-        for row in data_rows:
-            cells    = row.find_all(["td", "th"])
-            row_data = []
-            for cell in cells:
-                link = cell.find("a")
-                if link and link.get("href") and link.get_text(strip=True).endswith(".fasta"):
-                    row_data.append(f"[{link.get_text(strip=True)}]({link['href']})")
-                else:
-                    row_data.append(cell.get_text(strip=True))
-            if row_data:
-                rows.append(row_data)
-
-        import pandas as pd
-        max_cols = len(headers)
-        rows     = [r[:max_cols] + [""] * (max_cols - len(r)) for r in rows]
-        df       = pd.DataFrame(rows, columns=headers)
-        df       = df.loc[df["Build Name"] != ""]
-
-        entries = [s for s in df["Peptide Sequences"].tolist() if s]
-        parsed  = [re.findall(r"(\[.*?])(\(.*?\))", s)[0] for s in entries]
-        names   = [e[0][1:-1] for e in parsed]
-        urls    = [e[1][1:-1] for e in parsed]
-
-        print(f"Downloading {len(names)} FASTA files...")
-        for name, url in tqdm(zip(names, urls), total=len(names)):
-            local = cache_files / name
+        print(f"Downloading {len(PEPTIDE_ATLAS_FILES)} PeptideAtlas FASTA files...")
+        for rel in tqdm(PEPTIDE_ATLAS_FILES):
+            local = cache_files / rel.split("/")[-1]
             if local.exists():
                 continue
-            r = requests.get(f"https://peptideatlas.org/builds/{url}", timeout=120)
+            r = requests.get(f"https://peptideatlas.org/builds/{rel}", timeout=300)
             if not r.ok:
-                warn(Warning(f"Failed to fetch {name} (HTTP {r.status_code})"))
+                warn(Warning(f"Failed to fetch {rel} (HTTP {r.status_code})"))
                 continue
             local.write_text(r.text)
 
@@ -543,7 +528,7 @@ def tiny_imagenet_download() -> Path:
     """Download (or reuse cached) the akash2sharma/tiny-imagenet Kaggle
     dataset (kaggle.com/datasets/akash2sharma/tiny-imagenet) -- a mirror of
     Stanford's tiny-imagenet-200 (64x64 JPEGs, 200 classes). Used only as a
-    real-image null-model population for thresholdv2/mnist.py, downsized +
+    real-image null-model population for threshold/mnist.py, downsized +
     grayscaled to look structurally like MNIST.
     """
     import kagglehub

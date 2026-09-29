@@ -8,7 +8,7 @@ patterns.bin (also written by that script, into the same directory) are
 picked up as siblings by their fixed names.
 
 Usage:
-    uv run python -m thresholdv2.uniref \\
+    uv run python -m threshold.uniref \\
         --edgestore-path /path/unirefxbenchmark_layer0.edgestr \\
         --uniref50-fasta /path/uniref50.fasta.gz
 """

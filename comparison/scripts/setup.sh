@@ -25,7 +25,7 @@ make_venv random_split numpy scikit-learn pandas pyarrow
 # CUDA torch first, from its own index, so the next install doesn't pull a CPU build.
 make_venv deep_learning torch --index-url https://download.pytorch.org/whl/cu124
 VIRTUAL_ENV="$VENV_BASE/deep_learning" uv pip install scikit-learn scipy numpy pandas pyarrow \
-    transformers tqdm qmap-benchmark pytdc einops esm refnd==0.0.3 rdkit
+    transformers tqdm qmap-benchmark pytdc einops esm==3.2.3 refnd==0.0.3 rdkit
 
 echo ""
 echo "All venvs ready under $VENV_BASE"
