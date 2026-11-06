@@ -27,7 +27,7 @@ from typing import Any
 
 import numpy as np
 import torch
-from refnd.core import (
+from relag.core import (
     CsrGraph,
     INWeightType,
     LeidenObjective,

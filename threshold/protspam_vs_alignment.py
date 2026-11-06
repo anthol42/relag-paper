@@ -32,10 +32,10 @@ import numpy as np
 from Bio.Align import substitution_matrices
 from rich import print
 
-from refnd.kernels import KernelVariant, zip_kernel
-from refnd.kernels.alignments import ScoringMatrix
-from refnd.kernels.protspam import ProtSpamDistance
-from refnd.utils import SWPatternSet, SWSequence
+from relag.kernels import KernelVariant, zip_kernel
+from relag.kernels.alignments import ScoringMatrix
+from relag.kernels.protspam import ProtSpamDistance
+from relag.utils import SWPatternSet, SWSequence
 
 from src.cache import CacheStore
 

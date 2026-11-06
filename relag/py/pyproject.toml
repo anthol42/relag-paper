@@ -1,0 +1,35 @@
+[build-system]
+requires = ["maturin>=1.11,<2.0", "hatchling"]
+build-backend = "maturin"
+
+[project]
+name = "relag"
+requires-python = ">=3.10"
+description = "Sample Relation Finder; Efficient thresholded proximity graph computation; RGP toolkit."
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+dynamic = ["version"]
+
+[tool.hatch.build.hooks.custom]
+
+[tool.maturin]
+module-name = "relag"
+python-source = "python"
+include = ["python/**/*.pyi", "python/**/__init__.py"]
+profile = "release"
+
+[tool.pyo3-stub-gen]
+use-type-statement = true
+
+[dependency-groups]
+docs = [
+    "furo>=2025.12.19; python_version>='3.12'",
+    "myst-parser>=5.0.0; python_version>='3.12'",
+    "rdkit>=2026.3.3",
+    "sphinx>=9.1.0; python_version>='3.12'",
+    "sphinx-autodoc-typehints>=3.10.2; python_version>='3.12'",
+    "sphinx-llm>=0.4.1",
+]

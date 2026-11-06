@@ -19,8 +19,8 @@ NULL_SAMPLES = 10_000_000  # 10M for the GPD tail fit
 
 def build_graph_and_communities(sequences: list):
     """HNSW → distance graph → CPM communities (all seed-independent)."""
-    from refnd import KernelVariant
-    from refnd.core import (HNSWState, INWeightType, LeidenObjective,
+    from relag import KernelVariant
+    from relag.core import (HNSWState, INWeightType, LeidenObjective,
                             find_communities, find_components)
     from null_model import null_model, NullCfg
     # The null is fit on PeptideAtlas, loaded via the repo's src.datasets.
@@ -48,7 +48,7 @@ def main():
     parser.add_argument("--seeds", nargs="+", type=int, default=SEEDS)
     args = parser.parse_args()
 
-    from refnd.core import partition
+    from relag.core import partition
 
     sequences = load_protein_sequences(args.dataset)
     print(f"[{args.dataset}] {len(sequences)} sequences")

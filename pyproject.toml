@@ -23,7 +23,7 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "qmap-benchmark>=0.1.1",
     "rdkit>=2026.3.3",
-    "refnd>=0.0.3",
+    "relag",
     "rich>=15.0.0",
     "scipy>=1.16.0",
     "selfies>=2.2.0",
@@ -39,6 +39,7 @@ conflicts = [[{ extra = "cpu" }, { extra = "cuda" }]]
 override-dependencies = ["transformers==4.57.6"]
 
 [tool.uv.sources]
+relag = { path = "relag/py" }
 torch = [
     { index = "pytorch-cpu", extra = "cpu" },
     { index = "pytorch-cu118", extra = "cuda" },

@@ -41,7 +41,7 @@ import numpy as np
 import torch
 from rich import print
 
-from refnd.core import (HNSWState, INWeightType, LeidenObjective, find_communities,
+from relag.core import (HNSWState, INWeightType, LeidenObjective, find_communities,
                         partition)
 
 from src.cache import CacheStore
@@ -209,7 +209,7 @@ def nearest_train_distance(train_sequences: list[str], query_sequences: list[str
     Exact like comparison/scripts/deep_learning/compute_leakage.py: an approximate
     search can miss the true nearest neighbour and so under-report leakage.
     """
-    from refnd import exact_nearest_neighbors
+    from relag import exact_nearest_neighbors
     cfg = DATASETS[DATASET_KEY]
     hits = exact_nearest_neighbors(cfg.modality, query_sequences, train_sequences, 1,
                                    threads=0, progress=False, **cfg.kernel_params)

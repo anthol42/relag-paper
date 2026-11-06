@@ -5,6 +5,7 @@
 set -euo pipefail
 
 VENV_BASE="${RELAG_VENV_BASE:-$HOME/venvs/refnd_exp}"
+RELAG_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/relag/py"
 mkdir -p "$VENV_BASE"
 
 make_venv() {  # name, pip args...
@@ -15,14 +16,14 @@ make_venv() {  # name, pip args...
     VIRTUAL_ENV="$VENV_BASE/$name" uv pip install "$@"
 }
 
-make_venv refnd_split  refnd==0.0.3 numpy pandas pyarrow rdkit scipy selfies torch requests beautifulsoup4 tqdm
+make_venv refnd_split  "$RELAG_SRC" numpy pandas pyarrow rdkit scipy selfies torch requests beautifulsoup4 tqdm
 make_venv hestia_split hestia-good biopython numpy pandas pyarrow networkx rdkit
 make_venv random_split numpy scikit-learn pandas pyarrow
 
 # CUDA torch first, from its own index, so the next install doesn't pull a CPU build.
 make_venv deep_learning torch --index-url https://download.pytorch.org/whl/cu124
 VIRTUAL_ENV="$VENV_BASE/deep_learning" uv pip install scikit-learn scipy numpy pandas pyarrow \
-    transformers tqdm qmap-benchmark pytdc einops esm==3.2.3 refnd==0.0.3 rdkit
+    transformers tqdm qmap-benchmark pytdc einops esm==3.2.3 "$RELAG_SRC" rdkit
 
 echo ""
 echo "All venvs ready under $VENV_BASE"

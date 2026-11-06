@@ -3,8 +3,8 @@ import sys
 from pathlib import Path
 
 from src.datasets import DATASETS, SCALING_DATASET_KEY, prepare_hnsw_input
-from refnd.core import HNSWState, INWeightType, LeidenObjective, find_communities, partition
-from refnd import KernelVariant
+from relag.core import HNSWState, INWeightType, LeidenObjective, find_communities, partition
+from relag import KernelVariant
 
 if __name__ == "__main__":
     dataset_key = sys.argv[1]

@@ -18,7 +18,7 @@ RUNTIME=$(command -v apptainer || command -v singularity) || {
 
 # %files paths in the def are relative to the build's cwd.
 cd "$HERE"
-# Unprivileged build (fakeroot) works on Alliance clusters and most workstations.
+# Unprivileged build (fakeroot).
 "$RUNTIME" build --fakeroot --force --build-arg relock=$RELOCK "$SIF" datasail.def
 "$RUNTIME" test "$SIF"
 if [ "$RELOCK" = 1 ]; then

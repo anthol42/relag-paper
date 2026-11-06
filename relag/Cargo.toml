@@ -1,0 +1,8 @@
+[workspace]
+members = ["relag", "py"]
+resolver = "2"
+
+[patch.crates-io]
+libparasail-sys = { path = "vendor/libparasail-sys" }
+libusalign-sys  = { path = "vendor/libusalign-sys" }
+

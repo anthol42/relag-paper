@@ -3,6 +3,11 @@
 ## Requirements
 
 - [uv](https://docs.astral.sh/uv/) and Python 3.13
+- To build ReLaG (`relag/`, compiled from source by `uv sync`):
+  - Rust toolchain >= 1.85 (`rustc`, `cargo`; edition 2024), e.g. via [rustup](https://rustup.rs)
+  - C and C++ compilers (e.g. `gcc`/`g++`)
+  - CMake >= 3.5
+  - libclang (e.g. `libclang-dev`), used by bindgen
 - `mmseqs2` on `PATH` (used by hestia)
 - `apptainer` or `singularity` on `PATH` (DataSAIL splits)
 - Kaggle credentials for the BELKA and tiny-imagenet downloads: `KAGGLE_API_TOKEN`,
@@ -17,6 +22,8 @@
 uv sync
 export UNIREF50_FASTA=/path/to/uniref50.fasta.gz
 ```
+
+`uv sync` compiles ReLaG from `relag/` (a few minutes on first run).
 
 The comparison benchmark creates its own per-method venvs under
 `$HOME/venvs/refnd_exp` (override with `RELAG_VENV_BASE`).

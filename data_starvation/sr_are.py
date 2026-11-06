@@ -9,7 +9,7 @@ Usage:
 """
 
 from pathlib import Path
-from refnd import LeidenObjective
+from relag import LeidenObjective
 from src.data_starvation import run_starvation_experiment
 
 THRESHOLD = 0.4

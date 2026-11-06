@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Per test sample, compute the max identity to any train sample (exact NN).
 
-Identity = 1 - kernel_distance from refnd's exact_nearest_neighbors (brute force,
+Identity = 1 - kernel_distance from relag's exact_nearest_neighbors (brute force,
 no threshold), so the full 0..1 distribution is captured. Saves one .npy array of
 per-test-sample max identities to results/leakage/{dtype}/{dataset}/{method}_seed{seed}.npy
 """
@@ -22,7 +22,7 @@ BASE = Path(os.environ.get("RELAG_EXP_BASE", str(Path(__file__).resolve().parent
 def build_fingerprints(smiles_list):
     from rdkit import Chem
     from rdkit.Chem import rdFingerprintGenerator
-    from refnd.utils import BitFingerprint
+    from relag.utils import BitFingerprint
     gen = rdFingerprintGenerator.GetMorganGenerator(fpSize=2048, radius=2)
     fps = []
     for smi in smiles_list:
@@ -46,7 +46,7 @@ def load_items(dtype, dataset):
 
 
 def nn_call(dtype, queries, references, threads):
-    from refnd import KernelVariant, exact_nearest_neighbors
+    from relag import KernelVariant, exact_nearest_neighbors
     if dtype == "molecule":
         return exact_nearest_neighbors(
             KernelVariant.TanimotoBit, queries, references, 1,

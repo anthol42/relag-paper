@@ -19,7 +19,7 @@ from typing import Callable
 import numpy as np
 from rich import print
 
-from refnd.core import EdgeStore, HNSWState, INWeightType
+from relag.core import EdgeStore, HNSWState, INWeightType
 
 from src.cache import CacheStore
 from src.datasets import DATASETS

@@ -51,10 +51,10 @@ import itertools
 
 from rich import print
 
-from refnd.core import HNSWState
-from refnd.kernels import KernelVariant
-from refnd.kernels.protspam import ProtSpamDistance
-from refnd.utils import SWPatternSet, SWSequence
+from relag.core import HNSWState
+from relag.kernels import KernelVariant
+from relag.kernels.protspam import ProtSpamDistance
+from relag.utils import SWPatternSet, SWSequence
 
 from src.protein_benchmarks import (
     fetch_casp15_sequences,

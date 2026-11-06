@@ -26,7 +26,7 @@ from typing import Callable, Iterable
 import numpy as np
 from rich import print
 
-from refnd.core import EdgeStore, HNSWState, INWeightType
+from relag.core import EdgeStore, HNSWState, INWeightType
 
 from src.cache import CacheStore
 from src.datasets import DATASETS, belka_download
@@ -252,7 +252,7 @@ def generate_random_molecule_fps(n: int, seed: int) -> list:
     blocks. Linear SELFIES chains of bare atoms (C/N/O/S), chain length
     ~Normal(NULL_MEAN_SIZE, NULL_STD_SIZE) tokens, decoded to SMILES and
     kept only if RDKit accepts them."""
-    from refnd.utils import BitFingerprint
+    from relag.utils import BitFingerprint
     from rdkit import Chem, DataStructs
     from rdkit.Chem import rdFingerprintGenerator
     import selfies as sf

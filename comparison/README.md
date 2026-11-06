@@ -44,8 +44,7 @@ scripts/                            VERBATIM cluster pipeline (see below)
 The scripts are **path-relocatable** — no hardcoded absolute paths. Each script
 resolves an experiment root `BASE` from its own location (the parent of the
 `{method}/` dir), overridable with `RELAG_EXP_BASE`. Data, embeddings, splits,
-results, logs, and caches all live under `$BASE`. Venvs (`$HOME/venvs/...`),
-`module load`, and SLURM still assume the Alliance cluster. To reproduce:
+results, logs, and caches all live under `$BASE`. To reproduce:
 
 ```
 export RELAG_EXP_BASE=/path/to/experiment   # optional; else derived from script location

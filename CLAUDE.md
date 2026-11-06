@@ -15,6 +15,7 @@ This repo only reproduces the paper's figures. See `README.md` for setup and run
 | `figure_scripts/` | One shell script per notebook section; regenerates its result files |
 | `results/`, `comparison/results/` | Committed result data read by the notebook |
 | `figs/` | Figure output; the 8 committed SVGs are hand-made schematics |
+| `relag/` | ReLaG source (Rust + PyO3 bindings, native deps vendored in `relag/vendor/`); built by `uv sync`, imported as `relag` |
 | `src/` | Shared library (datasets, cache, embeddings, metrics, MLP), imported as `src.*` |
 | `comparison/scripts/` | Comparison benchmark (relag vs hestia / DataSAIL / random): download, embeddings, splits, training, leakage. Runs in its own per-method venvs |
 | `threshold/` | Threshold-selection sweeps (MNIST, molecules, peptides, UniRef) and ProtSpaM vs. alignment |

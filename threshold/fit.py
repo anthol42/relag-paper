@@ -4,7 +4,7 @@ import numpy as np
 from rich import print
 from scipy.stats import ks_2samp
 
-from refnd.core import EdgeStore, INWeightType, LeidenObjective, find_communities
+from relag.core import EdgeStore, INWeightType, LeidenObjective, find_communities
 
 
 

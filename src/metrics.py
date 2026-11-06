@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING, Any, Callable
 import numpy as np
 import torch
 from rich import print
-from refnd.utils import BitFingerprint
-from refnd.core import (
+from relag.utils import BitFingerprint
+from relag.core import (
     CsrGraph,
     EdgeStore,
     HNSWState,
@@ -19,7 +19,7 @@ from refnd.core import (
     find_components,
     partition,
 )
-from refnd.kernels import KernelVariant, zip_kernel
+from relag.kernels import KernelVariant, zip_kernel
 from tqdm import tqdm
 if TYPE_CHECKING:
     from .datasets import DatasetConfig

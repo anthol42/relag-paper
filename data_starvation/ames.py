@@ -10,7 +10,7 @@ Usage:
 
 from pathlib import Path
 
-from refnd.core import LeidenObjective
+from relag.core import LeidenObjective
 from src.data_starvation import run_starvation_experiment
 
 

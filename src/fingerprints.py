@@ -77,7 +77,7 @@ def compute_bitfingerprints(
     Returns (fingerprints, n_missing) where n_missing counts SMILES RDKit
     couldn't parse (skipped, not included in `fingerprints`).
     """
-    from refnd.utils import BitFingerprint
+    from relag.utils import BitFingerprint
 
     with ProcessPoolExecutor(max_workers=_MAX_WORKERS, mp_context=_MP_CONTEXT, initializer=_init_worker) as executor:
         results = executor.map(belka_fp_worker, smiles, chunksize=chunksize)
@@ -180,7 +180,7 @@ class _DiskFingerprintStream:
     """
 
     def __init__(self, path: str, n_items: int, *, progress: bool = False):
-        from refnd.utils import BitFingerprint
+        from relag.utils import BitFingerprint
 
         self._BitFingerprint = BitFingerprint
         self._f = open(path, "rb", buffering=1024 * 1024)
@@ -213,7 +213,7 @@ class _DiskFingerprintStream:
 
 def stream_bitfingerprints_from_disk(path: str, n_items: int, *, progress: bool = False):
     """See `_DiskFingerprintStream`. Meant to be passed directly as `data` to
-    `HNSWState(...)` (refnd>=0.0.3 accepts any Python iterable, not just a sized sequence),
+    `HNSWState(...)` (relag accepts any Python iterable, not just a sized sequence),
     so its construction-time memory profile is just the growing Rust-owned copy, isolated
     from fingerprint-computation cost.
     """

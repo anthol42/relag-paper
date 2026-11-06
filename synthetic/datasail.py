@@ -38,8 +38,7 @@ def find_runtime() -> str:
         if shutil.which(runtime):
             return runtime
     raise FileNotFoundError(
-        "Neither apptainer nor singularity is on PATH (on the cluster: "
-        "`module load apptainer/1.4.5`).")
+        "Neither apptainer nor singularity is on PATH.")
 
 
 def datasail_split(sequences: list[str], seed: int, sif: Path, threads: int = 8

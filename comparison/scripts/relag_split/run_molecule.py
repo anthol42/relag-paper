@@ -21,7 +21,7 @@ NULL_N_PAIRS = 2_000_000
 def build_fingerprints(smiles_list: list):
     from rdkit import Chem
     from rdkit.Chem import rdFingerprintGenerator
-    from refnd.utils import BitFingerprint
+    from relag.utils import BitFingerprint
     import numpy as np
 
     gen = rdFingerprintGenerator.GetMorganGenerator(fpSize=2048, radius=2)
@@ -40,9 +40,9 @@ def build_fingerprints(smiles_list: list):
 
 def build_graph_and_communities(valid_fps: list, null_cache_path):
     """HNSW → distance graph → CPM communities (all seed-independent)."""
-    from refnd.core import (HNSWState, INWeightType, LeidenObjective,
+    from relag.core import (HNSWState, INWeightType, LeidenObjective,
                             find_communities, find_components)
-    from refnd import KernelVariant
+    from relag import KernelVariant
     from null_model import random_molecule_null_gamma, NullCfg
 
     cfg = NullCfg(modality=KernelVariant.TanimotoBit, proximity_threshold=THRESHOLD)
@@ -74,7 +74,7 @@ def main():
     valid_fps = [fps[i] for i in valid_idx]
     print(f"[{args.dataset}] {len(valid_fps)}/{len(smiles)} valid SMILES")
 
-    from refnd.core import partition
+    from relag.core import partition
     # Shared, dataset-independent random-molecule null: one cache file for all datasets.
     null_cache_path = (Path(args.splits_dir).parent / "cache" /
                        f"mol_null_random_n{NULL_N_MOLECULES}_pairs{NULL_N_PAIRS}_seed42.npy")

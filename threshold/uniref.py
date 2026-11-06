@@ -23,10 +23,10 @@ from typing import Callable
 import numpy as np
 from rich import print
 
-from refnd.core import EdgeStore, INWeightType
-from refnd.kernels import KernelVariant, zip_kernel
-from refnd.kernels.protspam import ProtSpamDistance
-from refnd.utils import SWPatternSet, SWSequence
+from relag.core import EdgeStore, INWeightType
+from relag.kernels import KernelVariant, zip_kernel
+from relag.kernels.protspam import ProtSpamDistance
+from relag.utils import SWPatternSet, SWSequence
 
 from src.cache import CacheStore
 from src.metrics import _shuffle_sample, null_model_cdf

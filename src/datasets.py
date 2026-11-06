@@ -6,8 +6,8 @@ from typing import Any
 
 import numpy as np
 
-from refnd.kernels import KernelVariant
-from refnd.kernels.alignments import ScoringMatrix
+from relag.kernels import KernelVariant
+from relag.kernels.alignments import ScoringMatrix
 
 from .cache import CacheStore
 
@@ -131,7 +131,7 @@ def prepare_hnsw_input(dataset_key: str, items: list[str]) -> list[Any]:
     `molecular_similarity` incurs the same fingerprinting cost internally.
     """
     if dataset_key == "belka":
-        from refnd.utils import BitFingerprint
+        from relag.utils import BitFingerprint
         from .fingerprints import compute_fingerprints
 
         fps = compute_fingerprints(items)
@@ -147,7 +147,7 @@ def load_dataset(name: str, cache: CacheStore) -> tuple[list[Any], np.ndarray]:
     if cached is not None:
         data, labels = cached
         if name in ("ld50_zhu", "belka") or name in _TDC_MOLECULES:
-            from refnd.utils import BitFingerprint
+            from relag.utils import BitFingerprint
             data = [BitFingerprint.from_np(row) for row in data]
         return data, labels
 
@@ -156,7 +156,7 @@ def load_dataset(name: str, cache: CacheStore) -> tuple[list[Any], np.ndarray]:
         fp_arrays, labels, smiles = _load_tdc_molecule(module_name, tdc_name, is_classification, label_name)
         cache.store_dataset(name, fp_arrays, labels)
         cache.store_dataset(f"{name}_smiles", smiles, np.array([]))
-        from refnd.utils import BitFingerprint
+        from relag.utils import BitFingerprint
         return [BitFingerprint.from_np(row) for row in fp_arrays], labels
     if name == "enzyme_topt":
         data, labels = _load_enzyme_topt()
@@ -173,13 +173,13 @@ def load_dataset(name: str, cache: CacheStore) -> tuple[list[Any], np.ndarray]:
         fp_arrays, labels, smiles = _load_ld50_zhu()
         cache.store_dataset(name, fp_arrays, labels)
         cache.store_dataset(f"{name}_smiles", smiles, np.array([]))
-        from refnd.utils import BitFingerprint
+        from relag.utils import BitFingerprint
         return [BitFingerprint.from_np(row) for row in fp_arrays], labels
     elif name == "belka":
         fp_arrays, labels, smiles = _load_belka()
         cache.store_dataset(name, fp_arrays, labels)
         cache.store_dataset(f"{name}_smiles", smiles, np.array([]))
-        from refnd.utils import BitFingerprint
+        from relag.utils import BitFingerprint
         return [BitFingerprint.from_np(row) for row in fp_arrays], labels
     else:
         raise ValueError(f"Unknown dataset: {name!r}")
@@ -283,7 +283,7 @@ def _load_ld50_zhu() -> tuple[Any, np.ndarray, list[str]]:
     import requests
     from rdkit import Chem
     from rdkit.Chem import rdFingerprintGenerator
-    from refnd.utils import BitFingerprint
+    from relag.utils import BitFingerprint
 
     url = "https://huggingface.co/datasets/scikit-fingerprints/TDC_ld50_zhu/resolve/main/tdc_ld50_zhu.csv"
     print("Downloading LD50 (Zhu) dataset...")

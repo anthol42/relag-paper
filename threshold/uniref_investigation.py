@@ -36,7 +36,7 @@ import numpy as np
 from rich import print
 from scipy.stats import ks_2samp
 
-from refnd.core import EdgeStore
+from relag.core import EdgeStore
 
 OUT_DIR = Path(__file__).parent.parent / "results" / "thresholds"
 

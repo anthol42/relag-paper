@@ -1,0 +1,9 @@
+[package]
+name = "libusalign-sys"
+version = "0.1.1"
+edition = "2024"
+links = "usalign"
+
+[build-dependencies]
+cc = "1"
+bindgen = "0.71"

@@ -1,9 +1,9 @@
 """Null-model gamma for CPM Leiden.
 
-Ported from refnd-paper/src/metrics.py. Estimates gamma = P(distance between two
+Estimates gamma = P(distance between two
 random, element-shuffled samples <= proximity_threshold) via a GPD peaks-over-
 threshold tail fit, then hands it to find_communities(..., objective=CPM) as the
-CPM resolution. See relag-paper/src/metrics.py for the derivation.
+CPM resolution. See src/metrics.py for the derivation.
 """
 from __future__ import annotations
 
@@ -11,8 +11,8 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import numpy as np
-from refnd.utils import BitFingerprint
-from refnd.kernels import zip_kernel
+from relag.utils import BitFingerprint
+from relag.kernels import zip_kernel
 
 
 @dataclass
@@ -126,7 +126,7 @@ def generate_random_molecule_fps(n: int, seed: int) -> list:
     SELFIES chains of bare C/N/O/S atoms, length ~Normal(NULL_MEAN_SIZE, NULL_STD_SIZE),
     decoded to SMILES, kept only if RDKit accepts them. Morgan radius=2, fpSize=2048
     (matches run_molecule.py's fingerprints)."""
-    from refnd.utils import BitFingerprint
+    from relag.utils import BitFingerprint
     from rdkit import Chem, DataStructs
     from rdkit.Chem import rdFingerprintGenerator
     import selfies as sf
@@ -156,7 +156,7 @@ def random_molecule_null_gamma(cfg: NullCfg, n_molecules: int = 100_000,
                                n_pairs: int = 2_000_000, seed: int = 42,
                                cache_path=None) -> float:
     """gamma = P(distance <= proximity_threshold) under a random-atom-molecule null
-    (ported from refnd-paper threshold/molecules.py:find_gamma_function). The null
+    (as in threshold/molecules.py:find_gamma_function). The null
     pool is synthetic, so gamma is dataset-independent: one value serves every
     molecule dataset at a given threshold. Caches the raw null scores (threshold-
     independent) to *cache_path* so re-runs / other datasets just reload them."""

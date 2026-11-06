@@ -28,7 +28,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib import colormaps
 
-from refnd.kernels.alignments import GlobalAligner, ScoringMatrix
+from relag.kernels.alignments import GlobalAligner, ScoringMatrix
 
 from src.cache import CacheStore
 from src.datasets import load_dataset

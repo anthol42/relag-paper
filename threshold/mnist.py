@@ -21,10 +21,10 @@ from typing import Callable
 import numpy as np
 from rich import print
 
-from refnd.core import EdgeStore, HNSWState, INWeightType
-from refnd.kernels import KernelVariant
+from relag.core import EdgeStore, HNSWState, INWeightType
+from relag.kernels import KernelVariant
 
-from refnd.kernels import zip_kernel
+from relag.kernels import zip_kernel
 
 from src.cache import CacheStore
 from src.datasets import DatasetConfig, mnist_download, tiny_imagenet_grayscale_vectors

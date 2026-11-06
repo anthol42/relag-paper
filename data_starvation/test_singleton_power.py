@@ -21,7 +21,7 @@ Usage:
 import json
 from pathlib import Path
 
-from refnd.core import LeidenObjective
+from relag.core import LeidenObjective
 
 from src.data_starvation import run_singleton_power_experiment
 

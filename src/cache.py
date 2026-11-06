@@ -5,7 +5,7 @@ from typing import Any
 
 import torch
 
-from refnd.core import EdgeStore
+from relag.core import EdgeStore
 
 
 class CacheStore:

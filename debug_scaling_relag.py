@@ -13,8 +13,8 @@ from pathlib import Path
 
 import numpy as np
 
-from refnd.core import HNSWState, INWeightType, LeidenObjective, find_communities, partition
-from refnd import KernelVariant
+from relag.core import HNSWState, INWeightType, LeidenObjective, find_communities, partition
+from relag import KernelVariant
 
 from src.cache import CacheStore
 from src.datasets import DATASETS, SCALING_DATASET_KEY, belka_unique_smiles, load_dataset, prepare_hnsw_input
