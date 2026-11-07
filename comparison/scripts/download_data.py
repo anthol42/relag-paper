@@ -9,7 +9,7 @@ Existing files are left untouched: compute_embeddings.py rewrites the protein
 parquets filtered, and the splits/embeddings index into those filtered files.
 
 Run with the deep_learning venv (see setup.sh):
-    $HOME/venvs/refnd_exp/deep_learning/bin/python download_data.py
+    $HOME/venvs/relag_exp/deep_learning/bin/python download_data.py
 """
 import os
 from pathlib import Path

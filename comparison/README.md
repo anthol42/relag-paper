@@ -2,7 +2,7 @@
 
 Outputs **and full pipeline** for the graph-based dataset-splitting comparison
 (relag vs Hestia / MMseqs2 / DataSAIL / Random) across molecule, protein, and
-DNA datasets. Generated from `refnd_exp/` (refnd 0.0.3, CPM + null-model splits,
+DNA datasets. Generated from `relag_exp/` (relag 0.0.3, CPM + null-model splits,
 no post-filtering, no cross-method subsampling). All results are from the same
 run (training `summary.json` files and leakage arrays are mutually consistent).
 
@@ -109,4 +109,4 @@ Leakage was computed for seed 1 only (single-seed by design) — no error bars.
 
 `graphpart_split/` (GraphPart is not in the final method set), `archive/`, and
 `standalone_experiments/` (DeepPromoter, SR-ARE, AMES one-offs) are omitted; they
-live in `refnd_exp/` on the cluster. Ask if you want them mirrored here too.
+live in `relag_exp/` on the cluster. Ask if you want them mirrored here too.

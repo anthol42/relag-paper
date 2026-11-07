@@ -48,7 +48,7 @@
            id="stop3" />
       </linearGradient>
       <linearGradient
-         id="refndGrad"
+         id="relagGrad"
          x1="47.590733"
          y1="3160.6992"
          x2="192.57693"
@@ -201,9 +201,9 @@
      width="700.70001"
      height="30"
      rx="6"
-     fill="url(#refndGrad)"
+     fill="url(#relagGrad)"
      id="rect12"
-     style="fill:url(#refndGrad)"
+     style="fill:url(#relagGrad)"
      ry="6" />
   <rect
      x="971.37024"

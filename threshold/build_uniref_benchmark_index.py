@@ -29,7 +29,7 @@ ProtSpaM's alphabet are dropped during encoding (verified to drop <2.5% everywhe
 
 Usage:
     uv run python -m threshold.build_uniref_benchmark_index \\
-        --uniref50-fasta /mnt/documents/refnd_cache/uniref50/uniref50.fasta.gz \\
+        --uniref50-fasta /mnt/documents/relag_cache/uniref50/uniref50.fasta.gz \\
         --uniref-sequences-out /path/uniref50.swseq \\
         --benchmark-sequences-out /path/benchmarks.swseq \\
         --offsets-out /path/offsets.txt \\

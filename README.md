@@ -26,7 +26,7 @@ export UNIREF50_FASTA=/path/to/uniref50.fasta.gz
 `uv sync` compiles ReLaG from `relag/` (a few minutes on first run).
 
 The comparison benchmark creates its own per-method venvs under
-`$HOME/venvs/refnd_exp` (override with `RELAG_VENV_BASE`).
+`$HOME/venvs/relag_exp` (override with `RELAG_VENV_BASE`).
 
 ## Regenerating the data
 

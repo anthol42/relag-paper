@@ -4,7 +4,7 @@
 # Needs: mmseqs2 and apptainer (or singularity) on PATH.
 
 export RELAG_EXP_BASE="$PWD/comparison/scripts"
-VENV_BASE="${RELAG_VENV_BASE:-$HOME/venvs/refnd_exp}"
+VENV_BASE="${RELAG_VENV_BASE:-$HOME/venvs/relag_exp}"
 DL_PYTHON="$VENV_BASE/deep_learning/bin/python"
 
 bash comparison/scripts/setup.sh

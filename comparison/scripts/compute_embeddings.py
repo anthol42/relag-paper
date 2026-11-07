@@ -9,7 +9,7 @@ Each output is skipped if it already exists. The protein parquets are rewritten
 filtered, so the splits use the same indices as the embeddings.
 
 Run with the deep_learning venv (see setup.sh); uses a GPU if available:
-    $HOME/venvs/refnd_exp/deep_learning/bin/python compute_embeddings.py
+    $HOME/venvs/relag_exp/deep_learning/bin/python compute_embeddings.py
 """
 import os
 from pathlib import Path

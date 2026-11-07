@@ -7,7 +7,7 @@
 set -euo pipefail
 
 BASE="${RELAG_EXP_BASE:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
-VENV_BASE="${RELAG_VENV_BASE:-$HOME/venvs/refnd_exp}"
+VENV_BASE="${RELAG_VENV_BASE:-$HOME/venvs/relag_exp}"
 SPLITS="$BASE/splits"
 THREADS="$(nproc)"
 export HF_HOME="$BASE/hf_cache"
@@ -23,10 +23,10 @@ echo "=== random splits ==="
 
 echo "=== relag splits ==="
 for ds in "${PROTEIN[@]}"; do
-    "$VENV_BASE/refnd_split/bin/python" relag_split/run_protein.py --splits-dir "$SPLITS" --dataset "$ds"
+    "$VENV_BASE/relag_split/bin/python" relag_split/run_protein.py --splits-dir "$SPLITS" --dataset "$ds"
 done
 for ds in "${MOLECULE[@]}"; do
-    "$VENV_BASE/refnd_split/bin/python" relag_split/run_molecule.py --splits-dir "$SPLITS" --dataset "$ds"
+    "$VENV_BASE/relag_split/bin/python" relag_split/run_molecule.py --splits-dir "$SPLITS" --dataset "$ds"
 done
 
 echo "=== hestia splits ==="

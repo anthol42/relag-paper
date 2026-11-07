@@ -19,7 +19,7 @@ are computed downstream in the notebook.
 
 Usage:
     uv run python -m threshold.protspam_vs_alignment \\
-        --uniref50-fasta /mnt/documents/refnd_cache/uniref50/uniref50.fasta.gz
+        --uniref50-fasta /mnt/documents/relag_cache/uniref50/uniref50.fasta.gz
 """
 
 from __future__ import annotations
