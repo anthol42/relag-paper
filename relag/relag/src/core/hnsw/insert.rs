@@ -6,6 +6,10 @@ impl<T: Sync, D: Distance<T>> HNSWState<T, D> {
     pub fn insert_parallel(&self, query_idx: u32, scratch_buffers: &mut ScratchBuffers, rng: &mut impl Rng) {
         debug_assert!(scratch_buffers.is_clear(), "scratch_buffers are expected to be empty on entry");
         scratch_buffers.ensure_capacity(self.data.len());
+        let trace_t0 = super::trace::enabled().then(super::trace::tick);
+        let trace_entry = self.entry_point.get();
+        let mut trace_l0_start = Vec::new();
+        let mut trace_selected = Vec::new();
 
         let layer = if let Some((ep_node, ep_layer)) = self.entry_point.get() {
             let layer = self.sample_layer_with(rng);
@@ -28,6 +32,9 @@ impl<T: Sync, D: Distance<T>> HNSWState<T, D> {
             }
             // Fine search: descend from min(layer, ep_layer) to 0, connecting edges
             for l in (0..=layer.min(ep_layer)).rev() {
+                if l == 0 && trace_t0.is_some() {
+                    trace_l0_start = scratch_buffers.nearest_neighbors.iter().map(|c| c.idx).collect();
+                }
                 self.search_layer(
                     query_idx, l, self.config.ef_construction, self.config.proximity_threshold, self.config.strict_ef,
                     &mut scratch_buffers.visited,
@@ -66,6 +73,9 @@ impl<T: Sync, D: Distance<T>> HNSWState<T, D> {
                         &mut scratch_buffers.candidates,
                         &mut scratch_buffers.selected_neighbors,
                     );
+                }
+                if l == 0 && trace_t0.is_some() {
+                    trace_selected.clone_from(&scratch_buffers.selected_neighbors);
                 }
                 // Add bidirectional edges between the selected neighbors and the query
                 for &e in scratch_buffers.selected_neighbors.iter() {
@@ -107,7 +117,15 @@ impl<T: Sync, D: Distance<T>> HNSWState<T, D> {
                                 &mut scratch_buffers.selected_neighbors,
                             );
                         }
-                        self.hgraph.set_neighbourhood(l, e, &scratch_buffers.selected_neighbors);
+                        if l == 0 && trace_t0.is_some() {
+                            let removed: Vec<u32> = scratch_buffers.snapshot.iter().copied()
+                                .filter(|n| !scratch_buffers.selected_neighbors.contains(n))
+                                .collect();
+                            super::trace::record_prune(e, query_idx, &removed);
+                        }
+                        self.hgraph.prune_neighbourhood(
+                            l, e, &scratch_buffers.snapshot, &scratch_buffers.selected_neighbors,
+                        );
                     }
                 }
                 scratch_buffers.neighbors.clear();
@@ -117,6 +135,16 @@ impl<T: Sync, D: Distance<T>> HNSWState<T, D> {
             // First node: no connections possible, just establish the entry point
             self.sample_layer_with(rng)
         };
+
+        if let Some(t0) = trace_t0 {
+            super::trace::record_insert(
+                query_idx, layer, t0, trace_entry,
+                &trace_l0_start, &super::trace::take_visits(), &trace_selected,
+            );
+        }
+
+        // Must precede the entry point update: searches must only start from inserted nodes.
+        self.inserted.insert(query_idx as usize);
 
         // Update the entry point if this node was inserted at a higher layer
         self.entry_point.try_update(layer, query_idx);

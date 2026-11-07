@@ -25,6 +25,10 @@ pub struct HNSWConfig{
     pub proximity_threshold: f32,
     /// Number of threads for parallel build. 0 = use all available cores (Rayon default).
     pub n_threads: usize,
+    /// Number of nodes inserted single-threaded at the start of a build, before the
+    /// remaining nodes are inserted in parallel. 0 (default): only the first node, which
+    /// sets the entry point, is inserted single-threaded.
+    pub sequential_warmup: usize,
     /// Shuffle insertion order before building. Improves graph quality at the cost of cache locality.
     pub shuffle: bool,
     /// Use the heuristic neighbor selection (Algorithm 4). When false, uses the simple
@@ -54,6 +58,7 @@ impl Default for HNSWConfig {
             cache_shards: 64,
             proximity_threshold: 0.5,
             n_threads: 0,
+            sequential_warmup: 0,
             shuffle: false,
             use_heuristic: true,
             strict_ef: false,
@@ -116,6 +121,10 @@ impl HNSWConfig {
         self.n_threads = n;
         self
     }
+    pub fn set_sequential_warmup(&mut self, n: usize) -> &mut Self {
+        self.sequential_warmup = n;
+        self
+    }
     pub fn set_shuffle(&mut self, shuffle: bool) -> &mut Self {
         self.shuffle = shuffle;
         self
@@ -154,7 +163,7 @@ impl fmt::Debug for HNSWConfig {
             \x20 ef_init={}, extend_candidates={}, keep_pruned_connections={},\n\
             \x20 keep_all_edges={},\n\
             \x20 cache_capacity={}, cache_shards={},\n\
-            \x20 n_threads={}, shuffle={}, use_heuristic={},\n\
+            \x20 n_threads={}, sequential_warmup={}, shuffle={}, use_heuristic={},\n\
             \x20 strict_ef={}, threshold_based_neighbourhood={}\n\
             )",
             self.proximity_threshold, self.ef_construction,
@@ -162,7 +171,7 @@ impl fmt::Debug for HNSWConfig {
             self.ef_init, self.extend_candidates, self.keep_pruned_connections,
             self.keep_all_edges,
             self.cache_capacity, self.cache_shards,
-            self.n_threads, self.shuffle, self.use_heuristic,
+            self.n_threads, self.sequential_warmup, self.shuffle, self.use_heuristic,
             self.strict_ef, self.threshold_based_neighbourhood,
         )
     }
