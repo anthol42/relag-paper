@@ -8,7 +8,7 @@ so every family in it is unseen.
 
 For each repeat and each split method (random, relag):
   1. split the annotated dataset into train / test (no validation set: no early stopping);
-  2. train ONE MLP on ESM-2 embeddings of train, with no early stopping, and
+  2. train ONE MLP on ESM C embeddings of train, with no early stopping, and
      snapshot it at four checkpoints:
          32 steps   (barely trained, close to random)
          1 epoch
@@ -40,18 +40,17 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from src.cache import CacheStore
 from src.datasets import DATASETS, load_dataset
-from src.embeddings import _embed_hf
 from src.metrics import null_model
 from src.mlp import MLP
 from synthetic.compare_splits import (DATASET_KEY, N_NULL_PAIRS, SIGMA, TAU,
-                                      build_context, dataset_seeds, random_split,
+                                      build_context, dataset_seeds, embed, random_split,
                                       relag_split)
 from synthetic.dataset import SyntheticConfig, build_dataset
 from synthetic.generation import atlas_profile
 
 # ─────────────────────────────── experiment knobs ─────────────────────────────
 
-ENCODER = "facebook/esm2_t33_650M_UR50D"
+ENCODER = "esmc"
 METHODS = {"random": random_split, "relag": relag_split}
 # compare_splits still keys the relag context under its legacy name.
 CONTEXT_KEY = {"random": "random", "relag": "refnd"}
@@ -64,16 +63,6 @@ MODEL_NAMES = ["32_steps", "1_epoch", "10_epochs", "100_epochs"]
 
 RESULTS_PATH = (Path(__file__).parent.parent / "results" / "synthetic"
                 / f"ranking_tau{TAU:g}.json")
-
-
-def embed(sequences: list[str], cache: CacheStore, cache_key: str) -> torch.Tensor:
-    cached = cache.get_embs(cache_key)
-    if cached is not None:
-        return cached
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    embeddings = _embed_hf(ENCODER, sequences, device)
-    cache.store_embs(cache_key, embeddings)
-    return embeddings
 
 
 # ──────────────────────────────── training ───────────────────────────────────
@@ -138,7 +127,7 @@ def run_repeat(repeat: int, gamma: float, profile, cache: CacheStore) -> list[di
     production = build_dataset(config, seed=production_seed, profile=profile)
     print(f"[bold]  -- repeat {repeat} (datasets {annotated_seed}/{production_seed}) --[/]")
 
-    name = f"synthetic_{config.n_peptides}_{config.n_families}_esm2"
+    name = f"synthetic_{config.n_peptides}_{config.n_families}"
     embeddings = torch.cat([
         embed(annotated.sequences, cache, f"{name}_annotated{annotated_seed}"),
         embed(production.sequences, cache, f"{name}_production{production_seed}"),
