@@ -10,7 +10,7 @@ benchmark dataset:
      probe-test samples would sit in probe-train carrying the same half label, and
      the probe could score high by recognising them instead of detecting a shift;
   3. train a linear probe (standardised logistic regression) on frozen embeddings
-     (ESM-2 for proteins, ChemBERTa for molecules) to predict the half label, and
+     (ESM C for proteins, ChemBERTa for molecules) to predict the half label, and
      score its balanced accuracy on the probe test set.
 
 ~0.5 means the two halves come from the same distribution; higher means a shift.
@@ -40,7 +40,7 @@ from relag.core import (HNSWState, INWeightType, LeidenObjective, find_communiti
 
 from src.cache import CacheStore
 from src.datasets import DATASETS, load_dataset
-from src.embeddings import _embed_hf
+from src.embeddings import _embed_esmc, _embed_hf
 from src.metrics import null_model
 
 # ─────────────────────────────── experiment knobs ─────────────────────────────
@@ -48,7 +48,7 @@ from src.metrics import null_model
 PROTEIN_DATASETS = ["dbaasp", "enzyme_topt"]
 MOLECULE_DATASETS = ["cyp2c19_veith", "caco2_wang", "pgp_broccatelli", "ames",
                      "lipophilicity", "sr_are"]
-ENCODERS = {"protein": "facebook/esm2_t33_650M_UR50D",
+ENCODERS = {"protein": "esmc_300m",
             "molecule": "seyonec/ChemBERTa-zinc-base-v1"}
 METHODS = ["relag", "random"]
 N_REPEATS = 5
@@ -91,8 +91,9 @@ def embeddings_for(name: str, items: list, cache: CacheStore) -> np.ndarray:
     if cached is None:
         texts = items if kind == "protein" else cache.get_dataset(f"{name}_smiles")[0]
         import torch
-        cached = _embed_hf(ENCODERS[kind], list(texts),
-                           "cuda" if torch.cuda.is_available() else "cpu")
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        cached = (_embed_esmc(list(texts), device) if kind == "protein"
+                  else _embed_hf(ENCODERS[kind], list(texts), device))
         cache.store_embs(key, cached)
     return cached.numpy()
 

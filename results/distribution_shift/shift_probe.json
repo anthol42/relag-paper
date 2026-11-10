@@ -6,7 +6,7 @@
   ],
   "n_repeats": 5,
   "encoders": {
-   "protein": "facebook/esm2_t33_650M_UR50D",
+   "protein": "esmc_300m",
    "molecule": "seyonec/ChemBERTa-zinc-base-v1"
   },
   "label_test_ratio": 0.5,
@@ -27,159 +27,159 @@
    "dataset": "dbaasp",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.512010066058509,
-   "label_fraction": 0.17690894242547978,
-   "probe_test_fraction": 0.057574520212331566
+   "balanced_accuracy": 0.5443543891725569,
+   "label_fraction": 0.16149448754593712,
+   "probe_test_fraction": 0.06114740710494079
   },
   {
    "dataset": "dbaasp",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.5646571648690293,
-   "label_fraction": 0.8621886484279297,
-   "probe_test_fraction": 0.057064107799101677
+   "balanced_accuracy": 0.4945013272658324,
+   "label_fraction": 0.833605553287056,
+   "probe_test_fraction": 0.057472437729685584
   },
   {
    "dataset": "dbaasp",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.5174484133865094,
-   "label_fraction": 0.1259697835851368,
-   "probe_test_fraction": 0.0620661494487546
+   "balanced_accuracy": 0.5527851407061031,
+   "label_fraction": 0.13138015516537363,
+   "probe_test_fraction": 0.09105757452021233
   },
   {
    "dataset": "dbaasp",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.4136194155028803,
-   "label_fraction": 0.8605553287055941,
-   "probe_test_fraction": 0.06635361371988567
+   "balanced_accuracy": 0.5409073531285842,
+   "label_fraction": 0.8609636586361781,
+   "probe_test_fraction": 0.0768681094324214
   },
   {
    "dataset": "dbaasp",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.5150439153971982,
-   "label_fraction": 0.8293180890159249,
-   "probe_test_fraction": 0.7398938342180482
+   "balanced_accuracy": 0.5296472227500159,
+   "label_fraction": 0.8160473662719477,
+   "probe_test_fraction": 0.736014699877501
   },
   {
    "dataset": "dbaasp",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.512501886602606,
+   "balanced_accuracy": 0.5399542359638353,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.057574520212331566
+   "probe_test_fraction": 0.06114740710494079
   },
   {
    "dataset": "dbaasp",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.4991487455197133,
+   "balanced_accuracy": 0.47345702385460053,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.057064107799101677
+   "probe_test_fraction": 0.057472437729685584
   },
   {
    "dataset": "dbaasp",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.5122055159753486,
+   "balanced_accuracy": 0.5348303478510057,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.0620661494487546
+   "probe_test_fraction": 0.09105757452021233
   },
   {
    "dataset": "dbaasp",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.5037987650456706,
+   "balanced_accuracy": 0.5276654983322969,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.06635361371988567
+   "probe_test_fraction": 0.0768681094324214
   },
   {
    "dataset": "dbaasp",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.5003316805146074,
+   "balanced_accuracy": 0.5047115697658358,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.7398938342180482
+   "probe_test_fraction": 0.736014699877501
   },
   {
    "dataset": "enzyme_topt",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.4775085430257844,
-   "label_fraction": 0.47879109225874866,
-   "probe_test_fraction": 0.19034994697773064
+   "balanced_accuracy": 0.45808327081770445,
+   "label_fraction": 0.47613997879109227,
+   "probe_test_fraction": 0.18981972428419935
   },
   {
    "dataset": "enzyme_topt",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.47679924242424243,
-   "label_fraction": 0.5106044538706257,
-   "probe_test_fraction": 0.1951219512195122
+   "balanced_accuracy": 0.4942017944811241,
+   "label_fraction": 0.5068928950159067,
+   "probe_test_fraction": 0.19989395546129374
   },
   {
    "dataset": "enzyme_topt",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.46044191019244474,
-   "label_fraction": 0.4941675503711559,
-   "probe_test_fraction": 0.19459172852598092
+   "balanced_accuracy": 0.49184587813620073,
+   "label_fraction": 0.4936373276776246,
+   "probe_test_fraction": 0.19406150583244963
   },
   {
    "dataset": "enzyme_topt",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.5025252525252526,
-   "label_fraction": 0.4909862142099682,
-   "probe_test_fraction": 0.2067868504772004
+   "balanced_accuracy": 0.5305435305435305,
+   "label_fraction": 0.492576882290562,
+   "probe_test_fraction": 0.20519618239660659
   },
   {
    "dataset": "enzyme_topt",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.5194832170156198,
-   "label_fraction": 0.49045599151643693,
+   "balanced_accuracy": 0.5109478935698448,
+   "label_fraction": 0.48568398727465534,
    "probe_test_fraction": 0.20201484623541888
   },
   {
    "dataset": "enzyme_topt",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.4792209807572936,
+   "balanced_accuracy": 0.48863387978142075,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.19034994697773064
+   "probe_test_fraction": 0.18981972428419935
   },
   {
    "dataset": "enzyme_topt",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.5615530303030303,
+   "balanced_accuracy": 0.5328314100759921,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.1951219512195122
+   "probe_test_fraction": 0.19989395546129374
   },
   {
    "dataset": "enzyme_topt",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.49581005586592175,
+   "balanced_accuracy": 0.5048765893792072,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.19459172852598092
+   "probe_test_fraction": 0.19406150583244963
   },
   {
    "dataset": "enzyme_topt",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.5138195929357725,
+   "balanced_accuracy": 0.4745298643017416,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.2067868504772004
+   "probe_test_fraction": 0.20519618239660659
   },
   {
    "dataset": "enzyme_topt",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.48915752741774676,
+   "balanced_accuracy": 0.5075268817204301,
    "label_fraction": 0.5,
    "probe_test_fraction": 0.20201484623541888
   },
@@ -187,143 +187,143 @@
    "dataset": "cyp2c19_veith",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.4962716651359015,
-   "label_fraction": 0.5756810106592972,
-   "probe_test_fraction": 0.23260955388866955
+   "balanced_accuracy": 0.5221583723940861,
+   "label_fraction": 0.5527832609553889,
+   "probe_test_fraction": 0.198499802605606
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.476807996393127,
-   "label_fraction": 0.46766679826292934,
-   "probe_test_fraction": 0.17939202526648243
+   "balanced_accuracy": 0.5662325328536719,
+   "label_fraction": 0.4173707066719305,
+   "probe_test_fraction": 0.27406237662850375
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.5159689292701529,
-   "label_fraction": 0.6145282273983419,
-   "probe_test_fraction": 0.1735491512041058
+   "balanced_accuracy": 0.5101020039142274,
+   "label_fraction": 0.3806553493880774,
+   "probe_test_fraction": 0.21168574812475327
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.5175696436774635,
-   "label_fraction": 0.5315436241610738,
-   "probe_test_fraction": 0.2233714962495065
+   "balanced_accuracy": 0.5520489451476793,
+   "label_fraction": 0.5343071456770627,
+   "probe_test_fraction": 0.24840110540860638
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.532107129824474,
-   "label_fraction": 0.46142913541255426,
-   "probe_test_fraction": 0.2704303197789183
+   "balanced_accuracy": 0.49657324755487536,
+   "label_fraction": 0.4758784050532965,
+   "probe_test_fraction": 0.14772996446900907
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.49606211741278855,
+   "balanced_accuracy": 0.48703793381759486,
    "label_fraction": 0.49996052112120015,
-   "probe_test_fraction": 0.23260955388866955
+   "probe_test_fraction": 0.198499802605606
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.5097248011356796,
+   "balanced_accuracy": 0.502096214293116,
    "label_fraction": 0.49996052112120015,
-   "probe_test_fraction": 0.17939202526648243
+   "probe_test_fraction": 0.27406237662850375
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.5061472915398662,
+   "balanced_accuracy": 0.5027284495616672,
    "label_fraction": 0.49996052112120015,
-   "probe_test_fraction": 0.1735491512041058
+   "probe_test_fraction": 0.21168574812475327
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.512231729625446,
+   "balanced_accuracy": 0.5050812515158865,
    "label_fraction": 0.49996052112120015,
-   "probe_test_fraction": 0.2233714962495065
+   "probe_test_fraction": 0.24840110540860638
   },
   {
    "dataset": "cyp2c19_veith",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.5059356171164251,
+   "balanced_accuracy": 0.4987387418278243,
    "label_fraction": 0.49996052112120015,
-   "probe_test_fraction": 0.2704303197789183
+   "probe_test_fraction": 0.14772996446900907
   },
   {
    "dataset": "caco2_wang",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.4296935160942553,
-   "label_fraction": 0.5307692307692308,
-   "probe_test_fraction": 0.26043956043956046
+   "balanced_accuracy": 0.4376156122826489,
+   "label_fraction": 0.49230769230769234,
+   "probe_test_fraction": 0.24945054945054945
   },
   {
    "dataset": "caco2_wang",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.6103944802759862,
-   "label_fraction": 0.44945054945054946,
-   "probe_test_fraction": 0.189010989010989
+   "balanced_accuracy": 0.6164416015162284,
+   "label_fraction": 0.46373626373626375,
+   "probe_test_fraction": 0.2164835164835165
   },
   {
    "dataset": "caco2_wang",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.4959900442477876,
-   "label_fraction": 0.5263736263736264,
+   "balanced_accuracy": 0.3294871794871795,
+   "label_fraction": 0.5494505494505495,
    "probe_test_fraction": 0.1945054945054945
   },
   {
    "dataset": "caco2_wang",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.4714285714285714,
-   "label_fraction": 0.5010989010989011,
-   "probe_test_fraction": 0.13846153846153847
+   "balanced_accuracy": 0.38842105263157894,
+   "label_fraction": 0.4824175824175824,
+   "probe_test_fraction": 0.14505494505494507
   },
   {
    "dataset": "caco2_wang",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.5258175559380378,
-   "label_fraction": 0.5032967032967033,
-   "probe_test_fraction": 0.21428571428571427
+   "balanced_accuracy": 0.5724054706355591,
+   "label_fraction": 0.512087912087912,
+   "probe_test_fraction": 0.22087912087912087
   },
   {
    "dataset": "caco2_wang",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.5020652328728101,
+   "balanced_accuracy": 0.462043512043512,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.26043956043956046
+   "probe_test_fraction": 0.24945054945054945
   },
   {
    "dataset": "caco2_wang",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.4708271287396778,
+   "balanced_accuracy": 0.5645898234683281,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.189010989010989
+   "probe_test_fraction": 0.2164835164835165
   },
   {
    "dataset": "caco2_wang",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.4842549923195084,
+   "balanced_accuracy": 0.4973180076628353,
    "label_fraction": 0.5,
    "probe_test_fraction": 0.1945054945054945
   },
@@ -331,337 +331,337 @@
    "dataset": "caco2_wang",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.44405241935483875,
+   "balanced_accuracy": 0.4899561302239667,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.13846153846153847
+   "probe_test_fraction": 0.14505494505494507
   },
   {
    "dataset": "caco2_wang",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.4826425415527036,
+   "balanced_accuracy": 0.5040106951871658,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.21428571428571427
+   "probe_test_fraction": 0.22087912087912087
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.4951867816091954,
-   "label_fraction": 0.41379310344827586,
-   "probe_test_fraction": 0.19786535303776684
+   "balanced_accuracy": 0.4319848127782142,
+   "label_fraction": 0.47372742200328405,
+   "probe_test_fraction": 0.1568144499178982
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.5678010932816082,
-   "label_fraction": 0.513136288998358,
-   "probe_test_fraction": 0.13136288998357964
+   "balanced_accuracy": 0.5611040876527602,
+   "label_fraction": 0.47044334975369456,
+   "probe_test_fraction": 0.1272577996715928
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.4205128205128205,
-   "label_fraction": 0.45977011494252873,
-   "probe_test_fraction": 0.277504105090312
+   "balanced_accuracy": 0.46959349593495936,
+   "label_fraction": 0.4802955665024631,
+   "probe_test_fraction": 0.26354679802955666
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.4210421042104211,
-   "label_fraction": 0.39408866995073893,
-   "probe_test_fraction": 0.16420361247947454
+   "balanced_accuracy": 0.4403658385860833,
+   "label_fraction": 0.39080459770114945,
+   "probe_test_fraction": 0.2651888341543514
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.5215357458075904,
-   "label_fraction": 0.49835796387520526,
-   "probe_test_fraction": 0.3103448275862069
+   "balanced_accuracy": 0.4652535811072397,
+   "label_fraction": 0.5188834154351396,
+   "probe_test_fraction": 0.17077175697865354
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.5087731611454239,
+   "balanced_accuracy": 0.49249779346866723,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.19786535303776684
+   "probe_test_fraction": 0.1568144499178982
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.5275171982489055,
+   "balanced_accuracy": 0.5079946702198535,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.13136288998357964
+   "probe_test_fraction": 0.1272577996715928
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.5038533272336981,
+   "balanced_accuracy": 0.5182027469954738,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.277504105090312
+   "probe_test_fraction": 0.26354679802955666
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.5192307692307692,
+   "balanced_accuracy": 0.4868086091182597,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.16420361247947454
+   "probe_test_fraction": 0.2651888341543514
   },
   {
    "dataset": "pgp_broccatelli",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.49166666666666664,
+   "balanced_accuracy": 0.5192378838327785,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.3103448275862069
+   "probe_test_fraction": 0.17077175697865354
   },
   {
    "dataset": "ames",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.5317730402745813,
-   "label_fraction": 0.49546578730420443,
-   "probe_test_fraction": 0.3160208848584776
+   "balanced_accuracy": 0.4768956367703243,
+   "label_fraction": 0.5614179719703215,
+   "probe_test_fraction": 0.28620500137400384
   },
   {
    "dataset": "ames",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.4668438480306727,
-   "label_fraction": 0.5678757900522121,
-   "probe_test_fraction": 0.12503435009618027
+   "balanced_accuracy": 0.5157190311691617,
+   "label_fraction": 0.48351195383347073,
+   "probe_test_fraction": 0.22148942017037648
   },
   {
    "dataset": "ames",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.488891851061939,
-   "label_fraction": 0.3575158010442429,
-   "probe_test_fraction": 0.16062104973893926
+   "balanced_accuracy": 0.4405721090503699,
+   "label_fraction": 0.40725474031327286,
+   "probe_test_fraction": 0.12599615278922782
   },
   {
    "dataset": "ames",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.4768009069879896,
-   "label_fraction": 0.5998900796922232,
-   "probe_test_fraction": 0.1537510305028854
+   "balanced_accuracy": 0.5478646445781743,
+   "label_fraction": 0.5151140423193185,
+   "probe_test_fraction": 0.1647430612805716
   },
   {
    "dataset": "ames",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.4959360872743023,
-   "label_fraction": 0.5813410277548777,
-   "probe_test_fraction": 0.15402583127232755
+   "balanced_accuracy": 0.4425319693094629,
+   "label_fraction": 0.49587798845836767,
+   "probe_test_fraction": 0.14907941742236877
   },
   {
    "dataset": "ames",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.4913765222969785,
+   "balanced_accuracy": 0.5019175959489748,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.3160208848584776
+   "probe_test_fraction": 0.28620500137400384
   },
   {
    "dataset": "ames",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.5015481299074509,
+   "balanced_accuracy": 0.5158524789136769,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.12503435009618027
+   "probe_test_fraction": 0.22148942017037648
   },
   {
    "dataset": "ames",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.5137244222682924,
+   "balanced_accuracy": 0.49696445917376153,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.16062104973893926
+   "probe_test_fraction": 0.12599615278922782
   },
   {
    "dataset": "ames",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.5087060064571812,
+   "balanced_accuracy": 0.5116229535583028,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.1537510305028854
+   "probe_test_fraction": 0.1647430612805716
   },
   {
    "dataset": "ames",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.5011652191630798,
+   "balanced_accuracy": 0.4992164501281554,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.15402583127232755
+   "probe_test_fraction": 0.14907941742236877
   },
   {
    "dataset": "lipophilicity",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.5565588161524957,
-   "label_fraction": 0.5354761904761904,
-   "probe_test_fraction": 0.20404761904761906
+   "balanced_accuracy": 0.5177360504541713,
+   "label_fraction": 0.513095238095238,
+   "probe_test_fraction": 0.25642857142857145
   },
   {
    "dataset": "lipophilicity",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.5437991523496937,
-   "label_fraction": 0.5164285714285715,
-   "probe_test_fraction": 0.20142857142857143
+   "balanced_accuracy": 0.5231577870798543,
+   "label_fraction": 0.5007142857142857,
+   "probe_test_fraction": 0.17904761904761904
   },
   {
    "dataset": "lipophilicity",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.5318168114670979,
-   "label_fraction": 0.43452380952380953,
-   "probe_test_fraction": 0.20857142857142857
+   "balanced_accuracy": 0.5301012859906681,
+   "label_fraction": 0.4380952380952381,
+   "probe_test_fraction": 0.19642857142857142
   },
   {
    "dataset": "lipophilicity",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.4995728384150832,
-   "label_fraction": 0.46976190476190477,
-   "probe_test_fraction": 0.15333333333333332
+   "balanced_accuracy": 0.5246173764276136,
+   "label_fraction": 0.4061904761904762,
+   "probe_test_fraction": 0.16380952380952382
   },
   {
    "dataset": "lipophilicity",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.5261329826366057,
-   "label_fraction": 0.37952380952380954,
-   "probe_test_fraction": 0.2
+   "balanced_accuracy": 0.5875946782585787,
+   "label_fraction": 0.518095238095238,
+   "probe_test_fraction": 0.18976190476190477
   },
   {
    "dataset": "lipophilicity",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.5106387617178983,
+   "balanced_accuracy": 0.5016813127690101,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.20404761904761906
+   "probe_test_fraction": 0.25642857142857145
   },
   {
    "dataset": "lipophilicity",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.4795103957075788,
+   "balanced_accuracy": 0.49278226377673895,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.20142857142857143
+   "probe_test_fraction": 0.17904761904761904
   },
   {
    "dataset": "lipophilicity",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.487708186722965,
+   "balanced_accuracy": 0.4992412835834941,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.20857142857142857
+   "probe_test_fraction": 0.19642857142857142
   },
   {
    "dataset": "lipophilicity",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.5090621167791586,
+   "balanced_accuracy": 0.49869860987873404,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.15333333333333332
+   "probe_test_fraction": 0.16380952380952382
   },
   {
    "dataset": "lipophilicity",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.5236366935849741,
+   "balanced_accuracy": 0.5313177122700932,
    "label_fraction": 0.5,
-   "probe_test_fraction": 0.2
+   "probe_test_fraction": 0.18976190476190477
   },
   {
    "dataset": "sr_are",
    "method": "relag",
    "repeat": 0,
-   "balanced_accuracy": 0.5284276588177664,
-   "label_fraction": 0.4899570815450644,
-   "probe_test_fraction": 0.31296137339055796
+   "balanced_accuracy": 0.49623358549814445,
+   "label_fraction": 0.416480686695279,
+   "probe_test_fraction": 0.18214592274678112
   },
   {
    "dataset": "sr_are",
    "method": "relag",
    "repeat": 1,
-   "balanced_accuracy": 0.4669303750991355,
-   "label_fraction": 0.5201716738197425,
-   "probe_test_fraction": 0.21699570815450644
+   "balanced_accuracy": 0.4926867141974587,
+   "label_fraction": 0.5303004291845493,
+   "probe_test_fraction": 0.16892703862660943
   },
   {
    "dataset": "sr_are",
    "method": "relag",
    "repeat": 2,
-   "balanced_accuracy": 0.5319624618236313,
-   "label_fraction": 0.44274678111587984,
-   "probe_test_fraction": 0.21630901287553647
+   "balanced_accuracy": 0.5857223349109759,
+   "label_fraction": 0.35158798283261805,
+   "probe_test_fraction": 0.17974248927038627
   },
   {
    "dataset": "sr_are",
    "method": "relag",
    "repeat": 3,
-   "balanced_accuracy": 0.48605604921394396,
-   "label_fraction": 0.48240343347639486,
-   "probe_test_fraction": 0.1440343347639485
+   "balanced_accuracy": 0.5379674475648035,
+   "label_fraction": 0.5876394849785408,
+   "probe_test_fraction": 0.17579399141630903
   },
   {
    "dataset": "sr_are",
    "method": "relag",
    "repeat": 4,
-   "balanced_accuracy": 0.4435857656629634,
-   "label_fraction": 0.5773390557939914,
-   "probe_test_fraction": 0.1356223175965665
+   "balanced_accuracy": 0.467116754791674,
+   "label_fraction": 0.5321888412017167,
+   "probe_test_fraction": 0.2532188841201717
   },
   {
    "dataset": "sr_are",
    "method": "random",
    "repeat": 0,
-   "balanced_accuracy": 0.5026884439050701,
+   "balanced_accuracy": 0.480285897162364,
    "label_fraction": 0.49991416309012876,
-   "probe_test_fraction": 0.31296137339055796
+   "probe_test_fraction": 0.18214592274678112
   },
   {
    "dataset": "sr_are",
    "method": "random",
    "repeat": 1,
-   "balanced_accuracy": 0.4875,
+   "balanced_accuracy": 0.5100550713612384,
    "label_fraction": 0.49991416309012876,
-   "probe_test_fraction": 0.21699570815450644
+   "probe_test_fraction": 0.16892703862660943
   },
   {
    "dataset": "sr_are",
    "method": "random",
    "repeat": 2,
-   "balanced_accuracy": 0.5173078667997459,
+   "balanced_accuracy": 0.5174657509251082,
    "label_fraction": 0.49991416309012876,
-   "probe_test_fraction": 0.21630901287553647
+   "probe_test_fraction": 0.17974248927038627
   },
   {
    "dataset": "sr_are",
    "method": "random",
    "repeat": 3,
-   "balanced_accuracy": 0.5150252223322971,
+   "balanced_accuracy": 0.5008201724269474,
    "label_fraction": 0.49991416309012876,
-   "probe_test_fraction": 0.1440343347639485
+   "probe_test_fraction": 0.17579399141630903
   },
   {
    "dataset": "sr_are",
    "method": "random",
    "repeat": 4,
-   "balanced_accuracy": 0.5239654907189006,
+   "balanced_accuracy": 0.5127547830436413,
    "label_fraction": 0.49991416309012876,
-   "probe_test_fraction": 0.1356223175965665
+   "probe_test_fraction": 0.2532188841201717
   }
  ]
 }
